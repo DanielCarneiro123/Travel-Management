@@ -14,6 +14,8 @@
 
 #include "VertexEdge.h"
 
+using namespace std;
+
 class Graph {
 public:
     ~Graph();
@@ -37,6 +39,8 @@ public:
 
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
+
+    bool readEdges(std::vector<vector<int>> &paths);
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
 
@@ -49,6 +53,13 @@ protected:
     int findVertexIdx(const int &id) const;
 
     void initialize(const std::string &filename);
+
+    void readVertex(const std::string &filename);
+
+
+    void tsp(vector<int> currPath, int currDist, int minDist, int currInd);
+
+    bool isVisited(int city, vector<int> &path);
 };
 
 void deleteMatrix(int **m, int n);

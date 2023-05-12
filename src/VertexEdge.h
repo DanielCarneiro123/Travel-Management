@@ -13,6 +13,8 @@ class Edge;
 
 class Vertex {
 public:
+    Vertex();
+
     Vertex(int id);
     bool operator<(Vertex & vertex) const; // // required by MutablePriorityQueue
 

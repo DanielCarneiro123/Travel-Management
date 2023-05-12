@@ -1,6 +1,13 @@
 #include <iostream>
+#include <vector>
+#include "Graph.h"
+using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    Graph g;
+    vector<vector<int>> graph;
+    if (!g.readEdges(graph)){
+        return 0;
+    }
+
 }

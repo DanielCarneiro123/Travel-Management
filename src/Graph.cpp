@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <mmcobj.h>
+#include <sstream>
 #include "Graph.h"
 
 using namespace std;
@@ -95,7 +96,44 @@ Graph::~Graph() {
     deleteMatrix(pathMatrix, vertexSet.size());
 }
 
-void Graph::initialize(const string &filename) {
+
+
+bool Graph::readEdges(vector<vector<int>>& paths) {
+    string filename;
+    cout << "File: ";
+    cin >> filename;
+
+    fstream file;
+    file.open("../input/" + filename, ios::in);
+    if (!file) {
+        cerr << "Error: file " << filename << " not found" << endl;
+        return false;
+    }
+    if (file.is_open()) {
+        string line;
+        int node;
+        while (!file.eof()) {
+            vector<int> path;
+            getline(file, line);
+            if (line.empty())
+                break;
+            stringstream l(line);
+            try {
+                while (l >> node) {
+                    path.push_back(node);
+                }
+            } catch (const exception& e) {
+                cerr << "Invalid input" << endl;
+            }
+            paths.push_back(path);
+        }
+        file.close();
+    }
+
+    return true;
+}
+
+/*void Graph::readVertex(const std::string &filename)  {
 
     fstream file;
     file.open("../input/" + filename, ios::in);
@@ -108,14 +146,13 @@ void Graph::initialize(const string &filename) {
     {
         string numNodes, InitialNode, DestinyNode, capacity, duration;
         getline(file, numNodes, ' ');
-        this->addVertex(stoi(numNodes)+1);
+        this->vertexSet = vector<Vertex *>(stoi(numNodes)+1);
         file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         while (!file.eof())
         {
             getline(file, InitialNode, ' ');
             getline(file, DestinyNode, ' ');
             getline(file, capacity, ' ');
-            getline(file, duration);
             try {
                 this->addEdge(stoi(InitialNode), stoi(DestinyNode), stoi(capacity));
             } catch (const exception &e) {
@@ -124,11 +161,35 @@ void Graph::initialize(const string &filename) {
         }
         file.close();
     }
+}*/
+
+
+vector<vector<int>> graph;
+vector<int> bestPath;
+
+void Graph::tsp(vector<int> currPath, int currDist, int minDist, int currInd){
+    if (currPath.size() < graph.size()){
+        currDist += graph[currPath[currInd - 1]][currPath[0]];
+        if (currDist < minDist){
+            minDist = currDist;
+            bestPath = currPath;
+        }
+        return;
+    }
+    for (int i = 0; i < graph.size(); i++) {
+        if (!isVisited(i, currPath) && graph[currPath[currInd - 1]][i]) {
+            currPath.push_back(i);
+            tsp(currPath, currDist + graph[currPath[currInd - 1]][i], minDist, currInd + 1);
+        }
+    }
 }
 
-void tsp(int currPath, int currDist, int minDist, int currInd, Graph g){
-    if (currInd < g.getVertexSet().size()){
-        currDist +=
+bool Graph::isVisited(int city, vector<int>& path) {
+    for (int i = 0; i < path.size(); i++) {
+        if (path[i] == city) {
+            return true;
+        }
     }
+    return false;
 }
 

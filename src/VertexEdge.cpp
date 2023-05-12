@@ -1,6 +1,7 @@
 //
 // Created by Daniel on 04/05/2023.
 //
+#include <vector>
 #include "VertexEdge.h"
 
 /************************* Vertex  **************************/
@@ -82,3 +83,5 @@ double Vertex::getDist() const {
 Edge *Vertex::getPath() const {
     return this->path;
 }
+
+
