@@ -42,7 +42,7 @@ public:
 
     bool readEdges(std::vector<vector<int>> &paths);
 
-    void tsp(vector<int> currPath, int currDist, int minDist, int currInd);
+    void tsp(vector<int> currPath, double currDist, double minDist, int currInd);
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
 

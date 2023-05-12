@@ -97,8 +97,8 @@ Graph::~Graph() {
 }
 
 
-
-bool Graph::readEdges(vector<vector<int>>& paths) {
+//ficheiro mal lido
+bool Graph::readEdges(vector<int,int>& paths) {
     string filename;
     cout << "File: ";
     cin >> filename;
@@ -167,26 +167,25 @@ bool Graph::readEdges(vector<vector<int>>& paths) {
 vector<vector<int>> graph;
 vector<int> bestPath;
 
-void Graph::tsp(vector<int> currPath, int currDist, int minDist, int currInd){
+void Graph::tsp(vector<int> currPath, double currDist, double minDist, int currInd){
     if (currPath.size() < graph.size()){
         currDist += graph[currPath[currInd - 1]][currPath[0]];
         if (currDist < minDist){
             minDist = currDist;
             bestPath = currPath;
         }
-        return;
     }
     for (int i = 0; i < graph.size(); i++) {
         if (!isVisited(i, currPath) && graph[currPath[currInd - 1]][i]) {
-            currPath.push_back(i);
+            currPath[currInd] = i;
             tsp(currPath, currDist + graph[currPath[currInd - 1]][i], minDist, currInd + 1);
         }
     }
 }
 
-bool Graph::isVisited(int city, vector<int>& path) {
+bool Graph::isVisited(int currInd, vector<int>& path) {
     for (int i = 0; i < path.size(); i++) {
-        if (path[i] == city) {
+        if (path[i] == currInd) {
             return true;
         }
     }
