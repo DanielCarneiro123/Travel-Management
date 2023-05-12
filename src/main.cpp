@@ -1,21 +1,46 @@
 #include <iostream>
 #include <vector>
 #include "Graph.h"
+#include <sstream>
+#include <fstream>
 using namespace std;
+
+void matrixForm(vector<vector<double>> &graph)  {
+    const int maxNodes = 5;
+    graph.resize(maxNodes, vector<double>(maxNodes, 0));
+    string currentLine;
+    ifstream file;
+    file.open("C:/Users/Daniel/CLionProjects/Proj2_DA/Project2Graphs/Toy-Graphs/tourism.csv");
+    getline(file, currentLine);
+    while (getline(file, currentLine))
+    {
+        istringstream iss(currentLine);
+        string InitialNode, DestinyNode, capacity;
+        //file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        getline(iss, InitialNode, ',');
+        getline(iss, DestinyNode, ',');
+        getline(iss, capacity, ',');
+        try {
+            int initialId = stoi(InitialNode);
+            int destinyId = stoi(DestinyNode);
+            double distance = stod(capacity);
+            graph[initialId][destinyId] = distance;
+            graph[destinyId][initialId] = distance;
+        } catch (const exception &e) {
+            return;
+        }
+    }
+    file.close();
+}
 
 int main() {
     Graph g;
-    vector<vector<int>> graph;
-    if (!g.readEdges(graph)){
-        return 0;
-    }
+    vector<vector<double>> graph;
+    matrixForm(graph);
     vector<int> path;
-    path.push_back(0); // Começa na cidade 0
-    g.tsp(path, 0, INT32_MAX, 0);
-
-    // Exibe o caminho mais curto encontrado
-    cout << "Caminho mais curto: ";
-    for (int i = 0; i < bestPath.size(); i++) {
-        cout << bestPath[i] << " ";
-    }
+    path.push_back(0);
+    //vector<vector<double>> memo(graph.size(), vector<double>(graph.size(), -1));
+    g.tsp(path, 0, 0, graph);
+    g.printPath();
 }
