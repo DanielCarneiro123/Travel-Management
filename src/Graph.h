@@ -41,6 +41,8 @@ public:
     std::vector<Vertex *> getVertexSet() const;
 
     bool readEdges(std::vector<vector<int>> &paths);
+
+    void tsp(vector<int> currPath, int currDist, int minDist, int currInd);
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
 
@@ -55,9 +57,7 @@ protected:
     void initialize(const std::string &filename);
 
     void readVertex(const std::string &filename);
-
-
-    void tsp(vector<int> currPath, int currDist, int minDist, int currInd);
+    
 
     bool isVisited(int city, vector<int> &path);
 };
