@@ -7,7 +7,7 @@ using namespace std;
 
 void matrixForm(vector<vector<double>> &graph)  {
     const int maxNodes = 5;
-    graph.resize(maxNodes, vector<double>(maxNodes, 0));
+    graph.resize(maxNodes, vector<double>(maxNodes, NULL));
     string currentLine;
     ifstream file;
     file.open("C:/Users/Daniel/CLionProjects/Proj2_DA/Project2Graphs/Toy-Graphs/tourism.csv");
