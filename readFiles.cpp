@@ -20,23 +20,27 @@ Graph readFiles::smallGraphs(const std::string &filename){
     unordered_set<string> set_nodes;
     set<pair<string,string>> set_network;
 
-    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Toy-Graphs\\stadiums.csv");
+    myFile.open("/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/ProjectData/Toy-Graphs/stadiums.csv");
     getline(myFile, currentLine);    // ignore first line
     while (getline(myFile, currentLine)) {
-        stringstream iss(currentLine);
+        std::stringstream iss(currentLine);
         getline(iss, InitialNode, ',');
         getline(iss, DestinyNode, ',');
         getline(iss, distance, ',');
-        if((set_nodes.insert(InitialNode).second)){
-            _graph.addVertex(stoi(InitialNode));
-        }
-        if((set_nodes.insert(DestinyNode).second)){
-            _graph.addVertex(stoi(DestinyNode));
-        }
-        if ((set_network.insert(std::make_pair(InitialNode, DestinyNode)).second)) {
-            _graph.addBidirectionalEdge(stoi(InitialNode), stoi(DestinyNode), stod(distance));
-        }
 
+        int initialNodeId = std::stoi(InitialNode);
+        int destinyNodeId = std::stoi(DestinyNode);
+        double distanceDoble = std::stod(distance);
+
+        if (set_nodes.insert(InitialNode).second) {
+            _graph.addVertex(initialNodeId);
+        }
+        if (set_nodes.insert(DestinyNode).second) {
+            _graph.addVertex(destinyNodeId);
+        }
+        if (set_network.insert(std::make_pair(InitialNode, DestinyNode)).second) {
+            _graph.addBidirectionalEdge(initialNodeId, destinyNodeId, distanceDoble);
+        }
     }
     myFile.close();
     return _graph;

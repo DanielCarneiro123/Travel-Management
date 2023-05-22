@@ -37,7 +37,7 @@ using namespace std;
 
 int main() {
     readFiles rf;
-    Graph g = rf.smallGraphs("tourism.csv");
+    Graph g = rf.smallGraphs("shipping.csv");
     std::vector<int> tspPath = g.solveTSP();
 
     std::cout << "Caminho: ";

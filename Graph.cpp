@@ -3,7 +3,6 @@
 //
 
 #include <fstream>
-#include <mmcobj.h>
 #include "Graph.h"
 #include "VertexEdge.h"
 #include <cmath>
@@ -24,12 +23,18 @@ std::vector<Vertex *> Graph::getVertexSet() const {
 /*
  * Auxiliary function to find a vertex with a given content.
  */
-Vertex * Graph::findVertex(const int &id) const {
-    for (auto v : vertexSet)
-        if (v->getId() == id)
-            return v;
+Vertex* Graph::findVertex(const int& id) const {
+    for (auto vertex : vertexSet) {
+        if (vertex->getId() == id) {
+            return vertex;
+        }
+    }
     return nullptr;
 }
+
+
+
+
 
 /*
  * Finds the index of the vertex with a given content.
@@ -189,12 +194,19 @@ double Graph::PathCost(const std::vector<int>& path) {
         auto edge = vertex->getEdgeTo(nextVertex);
         cost += edge->getWeight();
     }
-    return cost;
+
+    auto vertex1 = findVertex(path.back());
+    auto vertex2 = findVertex(0);
+    auto edge1 = vertex1->getEdgeTo(vertex2);
+    cost+= edge1->getWeight();
+
+return cost;
 }
+
 
 // Função auxiliar para encontrar todas as permutações possíveis dos vértices
 void Graph::permute(std::vector<int>& path, int start, double& minCost, std::vector<int>& bestPath) {
-    if (start == path.size() - 1) {
+    if (start == path.size()) {
         double cost = PathCost(path);
         if (cost < minCost) {
             minCost = cost;
@@ -204,9 +216,9 @@ void Graph::permute(std::vector<int>& path, int start, double& minCost, std::vec
     }
 
     for (int i = start; i < path.size(); ++i) {
-        swap(path[start], path[i]);
+        std::swap(path[start], path[i]);
         permute(path, start + 1, minCost, bestPath);
-        swap(path[start], path[i]);
+        std::swap(path[start], path[i]);
     }
 }
 
@@ -220,10 +232,8 @@ std::vector<int> Graph::solveTSP() {
     double minCost = std::numeric_limits<double>::max();
     std::vector<int> bestPath;
 
-    permute(path, 0, minCost, bestPath);
+    permute(path, 1, minCost, bestPath);
 
     bestPath.push_back(bestPath[0]);
     return bestPath;
 }
-
-
