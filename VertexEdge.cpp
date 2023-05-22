@@ -149,3 +149,12 @@ void Edge::setReverse(Edge *reverse) {
 void Edge::setFlow(double flow) {
     this->flow = flow;
 }
+
+Edge* Vertex::getEdgeTo(Vertex* destination) const {
+    for (const auto& edge : adj) {
+        if (edge->getDest() == destination) {
+            return edge;
+        }
+    }
+    return nullptr; // Se não houver uma aresta que conecte os vértices
+}

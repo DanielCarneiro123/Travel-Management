@@ -11,8 +11,7 @@
 
 using namespace std;
 
-vector<Vertex*> bestPath;
-double minDist = numeric_limits<double>::max();
+
 
 int Graph::getNumVertex() const {
     return vertexSet.size();
@@ -51,6 +50,8 @@ bool Graph::addVertex(const int &id) {
     vertexSet.push_back(new Vertex(id));
     return true;
 }
+
+
 
 /*
  * Adds an edge to a graph (this), given the contents of the source and
@@ -142,8 +143,8 @@ void Graph::initialize(const string &filename) {
     double c = 2 * asin(sqrt(a));
     return rad * c;
 }*/
-
-void Graph::tsp(vector<Vertex*> &currPath, double currDist, int currInd){
+/*
+void Graph::tsp(vector<int> &currPath, double currDist, int currInd){
     Vertex* initialVertex = findVertex(currInd);
     if (currPath.size() == initialVertex->getAdj().size()){
         int w = initialVertex->getAdj()[0]->getWeight();
@@ -153,8 +154,9 @@ void Graph::tsp(vector<Vertex*> &currPath, double currDist, int currInd){
             bestPath = currPath;
         }
     }
-    for (auto v: currPath) {
-        if ((!isVisited(v, currPath)) && (currDist + (findVertex(currPath[currInd]))->getAdj()[i]->getWeight() < minDist)) {
+    for (int i = 0; i < initialVertex->getAdj().size(); i++) {
+        int vert = initialVertex->getAdj()[i]->getOrig()->getId();
+        if ((!isVisited(vert, currPath)) && (currDist + (findVertex(currPath[currInd]))->getAdj()[i]->getWeight() < minDist)) {
             currPath.push_back(i);
             tsp(currPath, currDist + (findVertex(currPath[currInd]))->getAdj()[i]->getWeight(), i);
             currPath.pop_back();
@@ -169,13 +171,59 @@ void Graph::printPath(){
     }
 }
 
-bool Graph::isVisited(Vertex* currVertex, vector<Vertex*>& path) {
+bool Graph::isVisited(int currInd, vector<int>& path) {
     for (int i = 0; i < path.size(); i++) {
         if (path[i] == currInd) {
             return true;
         }
     }
     return false;
+}*/
+
+// Função para calcular o custo total de um caminho
+double Graph::PathCost(const std::vector<int>& path) {
+    double cost = 0.0;
+    for (int i = 0; i < path.size() - 1; ++i) {
+        auto vertex = findVertex(path[i]);
+        auto nextVertex = findVertex(path[i + 1]);
+        auto edge = vertex->getEdgeTo(nextVertex);
+        cost += edge->getWeight();
+    }
+    return cost;
+}
+
+// Função auxiliar para encontrar todas as permutações possíveis dos vértices
+void Graph::permute(std::vector<int>& path, int start, double& minCost, std::vector<int>& bestPath) {
+    if (start == path.size() - 1) {
+        double cost = PathCost(path);
+        if (cost < minCost) {
+            minCost = cost;
+            bestPath = path;
+        }
+        return;
+    }
+
+    for (int i = start; i < path.size(); ++i) {
+        swap(path[start], path[i]);
+        permute(path, start + 1, minCost, bestPath);
+        swap(path[start], path[i]);
+    }
+}
+
+// Função principal para resolver o problema do caixeiro-viajante
+std::vector<int> Graph::solveTSP() {
+    std::vector<int> path;
+    for (auto& vertex : getVertexSet()) {
+        path.push_back(vertex->getId());
+    }
+
+    double minCost = std::numeric_limits<double>::max();
+    std::vector<int> bestPath;
+
+    permute(path, 0, minCost, bestPath);
+
+    bestPath.push_back(bestPath[0]);
+    return bestPath;
 }
 
 

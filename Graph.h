@@ -46,6 +46,12 @@ public:
 
     void printPath();
 
+    double PathCost(const std::vector<int> &path);
+
+    void permute(std::vector<int> &path, int start, double &minCost, std::vector<int> &bestPath);
+
+    std::vector<int> solveTSP();
+
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
 

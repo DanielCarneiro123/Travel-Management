@@ -38,7 +38,7 @@ public:
     void setPath(Edge *path);
     Edge * addEdge(Vertex *dest, double w);
     bool removeEdge(int destID);
-
+    Edge *getEdgeTo(Vertex *destination) const;
     friend class MutablePriorityQueue<Vertex>;
 protected:
     int id;                // identifier
@@ -54,6 +54,7 @@ protected:
     std::vector<Edge *> incoming; // incoming edges
 
     int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
+
 };
 
 /********************** Edge  ****************************/
