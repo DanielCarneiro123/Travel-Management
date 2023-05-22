@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Proj2_DA"
+			"path" : "Proj2_DA.exe"
+		},
+		{
+			"path" : "Proj2_DA.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -35,7 +38,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk"
+					"fragment" : "-g"
 				},
 				{
 					"fragment" : "-std=gnu++14"
@@ -71,12 +74,16 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "Proj2_DA",
-	"nameOnDisk" : "Proj2_DA",
+	"nameOnDisk" : "Proj2_DA.exe",
 	"paths" : 
 	{
 		"build" : ".",

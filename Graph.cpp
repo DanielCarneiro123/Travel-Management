@@ -191,14 +191,24 @@ double Graph::PathCost(const std::vector<int>& path) {
     for (int i = 0; i < path.size() - 1; ++i) {
         auto vertex = findVertex(path[i]);
         auto nextVertex = findVertex(path[i + 1]);
-        auto edge = vertex->getEdgeTo(nextVertex);
-        cost += edge->getWeight();
+        for (auto v: vertex->getAdj()){
+            if (v->getDest() == nextVertex){
+                auto edge = v;
+                cost += edge->getWeight();
+                break;
+            }
+        }
     }
 
     auto vertex1 = findVertex(path.back());
     auto vertex2 = findVertex(0);
-    auto edge1 = vertex1->getEdgeTo(vertex2);
-    cost+= edge1->getWeight();
+    for (auto v: vertex1->getAdj()){
+        if (v->getDest() == vertex2){
+            auto edge = v;
+            cost += edge->getWeight();
+            break;
+        }
+    }
 
 return cost;
 }

@@ -8,98 +8,102 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Proj2_DA">
-				<Option output="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Proj2_DA" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug"/>
+				<Option output="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Proj2_DA.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
-					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.0/include"/>
-					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
-					<Add directory="/System/Library/Frameworks"/>
-					<Add directory="/Library/Frameworks"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Proj2_DA"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Proj2_DA"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Proj2_DA/fast">
-				<Option output="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Proj2_DA" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug"/>
+				<Option output="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Proj2_DA.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
-					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.0/include"/>
-					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
-					<Add directory="/System/Library/Frameworks"/>
-					<Add directory="/Library/Frameworks"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Proj2_DA/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Proj2_DA/fast"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/Graph.cpp">
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/Graph.cpp">
 			<Option target="Proj2_DA"/>
 		</Unit>
-		<Unit filename="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/Graph.h">
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/Graph.h">
 			<Option target="Proj2_DA"/>
 		</Unit>
-		<Unit filename="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/VertexEdge.cpp">
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/VertexEdge.cpp">
 			<Option target="Proj2_DA"/>
 		</Unit>
-		<Unit filename="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/VertexEdge.h">
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/VertexEdge.h">
 			<Option target="Proj2_DA"/>
 		</Unit>
-		<Unit filename="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/main.cpp">
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/main.cpp">
 			<Option target="Proj2_DA"/>
 		</Unit>
-		<Unit filename="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/readFiles.cpp">
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/readFiles.cpp">
 			<Option target="Proj2_DA"/>
 		</Unit>
-		<Unit filename="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/readFiles.h">
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/readFiles.h">
 			<Option target="Proj2_DA"/>
 		</Unit>
-		<Unit filename="/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/CMakeLists.txt">
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
