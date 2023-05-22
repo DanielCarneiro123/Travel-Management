@@ -3,4 +3,4 @@ project(Proj2_DA)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Proj2_DA src/main.cpp src/Graph.cpp src/Graph.h)
+add_executable(Proj2_DA main.cpp Graph.cpp  VertexEdge.cpp  readFiles.cpp  )

@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6"/>
 	<Project>
-		<Option title="Proj2_DA"/>
+		<Option title="DAproj2"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
 		<Option virtualFolders="CMake Files\;"/>
@@ -86,6 +86,9 @@
 			<Option target="Proj2_DA"/>
 		</Unit>
 		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/Graph.h">
+			<Option target="Proj2_DA"/>
+		</Unit>
+		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/MutablePriorityQueue.h">
 			<Option target="Proj2_DA"/>
 		</Unit>
 		<Unit filename="C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/VertexEdge.cpp">

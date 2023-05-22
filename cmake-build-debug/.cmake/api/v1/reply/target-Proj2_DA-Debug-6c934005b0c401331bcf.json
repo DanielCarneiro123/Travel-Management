@@ -56,7 +56,9 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
+				1,
+				2,
+				3
 			]
 		}
 	],
@@ -94,14 +96,9 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
-			]
-		},
-		{
-			"name" : "Header Files",
-			"sourceIndexes" : 
-			[
-				2
+				1,
+				2,
+				3
 			]
 		}
 	],
@@ -110,19 +107,26 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/main.cpp",
+			"path" : "main.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/Graph.cpp",
+			"path" : "Graph.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/Graph.h",
-			"sourceGroupIndex" : 1
+			"compileGroupIndex" : 0,
+			"path" : "VertexEdge.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "readFiles.cpp",
+			"sourceGroupIndex" : 0
 		}
 	],
 	"type" : "EXECUTABLE"

@@ -128,53 +128,101 @@ Proj2_DA/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/build
 .PHONY : Proj2_DA/fast
 
-src/Graph.obj: src/Graph.cpp.obj
-.PHONY : src/Graph.obj
+Graph.obj: Graph.cpp.obj
+.PHONY : Graph.obj
 
 # target to build an object file
-src/Graph.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/src/Graph.cpp.obj
-.PHONY : src/Graph.cpp.obj
+Graph.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/Graph.cpp.obj
+.PHONY : Graph.cpp.obj
 
-src/Graph.i: src/Graph.cpp.i
-.PHONY : src/Graph.i
+Graph.i: Graph.cpp.i
+.PHONY : Graph.i
 
 # target to preprocess a source file
-src/Graph.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/src/Graph.cpp.i
-.PHONY : src/Graph.cpp.i
+Graph.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/Graph.cpp.i
+.PHONY : Graph.cpp.i
 
-src/Graph.s: src/Graph.cpp.s
-.PHONY : src/Graph.s
+Graph.s: Graph.cpp.s
+.PHONY : Graph.s
 
 # target to generate assembly for a file
-src/Graph.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/src/Graph.cpp.s
-.PHONY : src/Graph.cpp.s
+Graph.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/Graph.cpp.s
+.PHONY : Graph.cpp.s
 
-src/main.obj: src/main.cpp.obj
-.PHONY : src/main.obj
+VertexEdge.obj: VertexEdge.cpp.obj
+.PHONY : VertexEdge.obj
 
 # target to build an object file
-src/main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/src/main.cpp.obj
-.PHONY : src/main.cpp.obj
+VertexEdge.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/VertexEdge.cpp.obj
+.PHONY : VertexEdge.cpp.obj
 
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
+VertexEdge.i: VertexEdge.cpp.i
+.PHONY : VertexEdge.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+VertexEdge.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/VertexEdge.cpp.i
+.PHONY : VertexEdge.cpp.i
 
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
+VertexEdge.s: VertexEdge.cpp.s
+.PHONY : VertexEdge.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+VertexEdge.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/VertexEdge.cpp.s
+.PHONY : VertexEdge.cpp.s
+
+main.obj: main.cpp.obj
+.PHONY : main.obj
+
+# target to build an object file
+main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/main.cpp.obj
+.PHONY : main.cpp.obj
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/main.cpp.s
+.PHONY : main.cpp.s
+
+readFiles.obj: readFiles.cpp.obj
+.PHONY : readFiles.obj
+
+# target to build an object file
+readFiles.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/readFiles.cpp.obj
+.PHONY : readFiles.cpp.obj
+
+readFiles.i: readFiles.cpp.i
+.PHONY : readFiles.i
+
+# target to preprocess a source file
+readFiles.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/readFiles.cpp.i
+.PHONY : readFiles.cpp.i
+
+readFiles.s: readFiles.cpp.s
+.PHONY : readFiles.s
+
+# target to generate assembly for a file
+readFiles.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proj2_DA.dir\build.make CMakeFiles/Proj2_DA.dir/readFiles.cpp.s
+.PHONY : readFiles.cpp.s
 
 # Help Target
 help:
@@ -185,12 +233,18 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Proj2_DA
-	@echo ... src/Graph.obj
-	@echo ... src/Graph.i
-	@echo ... src/Graph.s
-	@echo ... src/main.obj
-	@echo ... src/main.i
-	@echo ... src/main.s
+	@echo ... Graph.obj
+	@echo ... Graph.i
+	@echo ... Graph.s
+	@echo ... VertexEdge.obj
+	@echo ... VertexEdge.i
+	@echo ... VertexEdge.s
+	@echo ... main.obj
+	@echo ... main.i
+	@echo ... main.s
+	@echo ... readFiles.obj
+	@echo ... readFiles.i
+	@echo ... readFiles.s
 .PHONY : help
 
 

@@ -3,14 +3,15 @@
 #include "Graph.h"
 #include <sstream>
 #include <fstream>
+#include "readFiles.h"
 using namespace std;
 
-void matrixForm(vector<vector<double>> &graph)  {
-    const int maxNodes = 5;
+/*void matrixForm(vector<vector<double>> &graph)  {
+    const int maxNodes = 11;
     graph.resize(maxNodes, vector<double>(maxNodes, NULL));
     string currentLine;
     ifstream file;
-    file.open("C:/Users/Daniel/CLionProjects/Proj2_DA/Project2Graphs/Toy-Graphs/tourism.csv");
+    file.open("C:/Users/Daniel/CLionProjects/Proj2_DA/Project2Graphs/Toy-Graphs/stadiums.csv");
     getline(file, currentLine);
     while (getline(file, currentLine))
     {
@@ -32,15 +33,16 @@ void matrixForm(vector<vector<double>> &graph)  {
         }
     }
     file.close();
-}
+}*/
 
 int main() {
-    Graph g;
-    vector<vector<double>> graph;
-    matrixForm(graph);
+    readFiles rf;
+    Graph g = rf.smallGraphs("tourism.csv");
+    //vector<vector<double>> graph;
+    //matrixForm(graph);
     vector<int> path;
     path.push_back(0);
     //vector<vector<double>> memo(graph.size(), vector<double>(graph.size(), -1));
-    g.tsp(path, 0, 0, graph);
+    g.tsp(path, 0, 0);
     g.printPath();
 }

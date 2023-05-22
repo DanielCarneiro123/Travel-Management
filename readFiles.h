@@ -1,0 +1,17 @@
+//
+// Created by Daniel on 18/05/2023.
+//
+
+#ifndef PROJ2_DA_READFILES_H
+#define PROJ2_DA_READFILES_H
+
+
+#include "Graph.h"
+
+class readFiles {
+public:
+    Graph smallGraphs(const std::string &filename);
+};
+
+
+#endif //PROJ2_DA_READFILES_H

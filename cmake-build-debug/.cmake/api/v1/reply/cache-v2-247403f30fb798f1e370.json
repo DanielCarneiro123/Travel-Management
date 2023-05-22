@@ -1318,6 +1318,42 @@
 			"value" : "FALSE"
 		},
 		{
+			"name" : "DAproj2_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug"
+		},
+		{
+			"name" : "DAproj2_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "DAproj2_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2"
+		},
+		{
 			"name" : "Proj2_DA_BINARY_DIR",
 			"properties" : 
 			[

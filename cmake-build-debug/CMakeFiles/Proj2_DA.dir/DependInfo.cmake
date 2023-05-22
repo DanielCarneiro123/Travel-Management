@@ -8,8 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/src/Graph.cpp" "CMakeFiles/Proj2_DA.dir/src/Graph.cpp.obj" "gcc" "CMakeFiles/Proj2_DA.dir/src/Graph.cpp.obj.d"
-  "C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/src/main.cpp" "CMakeFiles/Proj2_DA.dir/src/main.cpp.obj" "gcc" "CMakeFiles/Proj2_DA.dir/src/main.cpp.obj.d"
+  "C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/Graph.cpp" "CMakeFiles/Proj2_DA.dir/Graph.cpp.obj" "gcc" "CMakeFiles/Proj2_DA.dir/Graph.cpp.obj.d"
+  "C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/VertexEdge.cpp" "CMakeFiles/Proj2_DA.dir/VertexEdge.cpp.obj" "gcc" "CMakeFiles/Proj2_DA.dir/VertexEdge.cpp.obj.d"
+  "C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/main.cpp" "CMakeFiles/Proj2_DA.dir/main.cpp.obj" "gcc" "CMakeFiles/Proj2_DA.dir/main.cpp.obj.d"
+  "C:/Users/Daniel/OneDrive/Documentos/GitHub/DAproj2/readFiles.cpp" "CMakeFiles/Proj2_DA.dir/readFiles.cpp.obj" "gcc" "CMakeFiles/Proj2_DA.dir/readFiles.cpp.obj.d"
   )
 
 # Targets to which this target links.
