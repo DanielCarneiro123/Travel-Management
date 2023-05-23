@@ -42,7 +42,6 @@ public:
 
     void initialize(const std::string &filename);
 
-    void tsp(std::vector<int> &currPath, double currDist, int currInd);
 
     void printPath();
 
@@ -51,6 +50,12 @@ public:
     void permute(std::vector<int> &path, int start, double &minCost, std::vector<int> &bestPath);
 
     std::vector<int> solveTSP();
+
+    void
+    tsp(int initialNode, int currInd, double currDist, double minDist,
+        std::vector<int> path);
+
+    double tspBT(int initialNode, std::vector<int> path);
 
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-
+double minPath;
 
 int Graph::getNumVertex() const {
     return vertexSet.size();
@@ -148,43 +148,46 @@ void Graph::initialize(const string &filename) {
     double c = 2 * asin(sqrt(a));
     return rad * c;
 }*/
-/*
-void Graph::tsp(vector<int> &currPath, double currDist, int currInd){
-    Vertex* initialVertex = findVertex(currInd);
-    if (currPath.size() == initialVertex->getAdj().size()){
-        int w = initialVertex->getAdj()[0]->getWeight();
-        currDist += w;
+
+double Graph::tspBT(int initialNode, vector<int> path){
+    double minDist = numeric_limits<double>::max();
+    tsp(initialNode, 1, 0, minPath ,path);
+    return minDist;
+}
+
+void Graph::tsp(int initialNode,int currInd, double currDist , double minDist, vector<int> path){
+    Vertex* initialVertex = findVertex(initialNode);
+    Vertex* currVertex = findVertex(currInd);
+    if (initialVertex == currVertex){
+        Vertex* vert = findVertex(currInd);
+        for (auto e : vert->getAdj()) {
+            if (e->getDest()->getId() == 0) {
+                currDist += e->getWeight();
+            }
+        }
         if (currDist < minDist) {
             minDist = currDist;
-            bestPath = currPath;
+            //cout << vert->getPath() << endl;
         }
     }
-    for (int i = 0; i < initialVertex->getAdj().size(); i++) {
-        int vert = initialVertex->getAdj()[i]->getOrig()->getId();
-        if ((!isVisited(vert, currPath)) && (currDist + (findVertex(currPath[currInd]))->getAdj()[i]->getWeight() < minDist)) {
-            currPath.push_back(i);
-            tsp(currPath, currDist + (findVertex(currPath[currInd]))->getAdj()[i]->getWeight(), i);
-            currPath.pop_back();
+    for (auto edge: currVertex->getAdj()) {
+        Vertex* dest = edge->getDest();
+        double edgeDist = edge->getWeight();
+        if (!dest->isVisited() && (currDist + edgeDist < minDist)) {
+            dest->setVisited(true);
+            dest->setPath(edge);
+            currDist += edgeDist;
+            tsp(dest->getId(), currInd + 1, currDist,  minDist, path);
+            dest->setVisited(false);
         }
     }
 }
 
-void Graph::printPath(){
-    cout << minDist << endl;
-    for (int i = 0; i < bestPath.size(); i++) {
-        cout << bestPath[i] << " ";
-    }
-}
 
-bool Graph::isVisited(int currInd, vector<int>& path) {
-    for (int i = 0; i < path.size(); i++) {
-        if (path[i] == currInd) {
-            return true;
-        }
-    }
-    return false;
-}*/
 
+
+
+/*
 // Função para calcular o custo total de um caminho
 double Graph::PathCost(const std::vector<int>& path) {
     double cost = 0.0;
@@ -247,3 +250,4 @@ std::vector<int> Graph::solveTSP() {
     bestPath.push_back(bestPath[0]);
     return bestPath;
 }
+*/

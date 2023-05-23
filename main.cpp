@@ -38,23 +38,13 @@ using namespace std;
 int main() {
     readFiles rf;
     Graph g = rf.smallGraphs("shipping.csv");
-    std::vector<int> tspPath = g.solveTSP();
-
-    std::cout << "Caminho: ";
-    for (const auto& vertexId : tspPath) {
-        std::cout << vertexId << " ";
-    }
-    std::cout << std::endl;
-
-    double tspCost = g.PathCost(tspPath);
-    std::cout << "Custo: " << tspCost << std::endl;
 
     //vector<vector<double>> graph;
     //matrixForm(graph);
-    //vector<int> path;
-    //path.push_back(0);
+    vector<int> path;
+    path.push_back(0);
     //vector<vector<double>> memo(graph.size(), vector<double>(graph.size(), -1));
-    //g.tsp(path, 0, 0);
+    return g.tspBT(0, path);
     //g.printPath();
-    return 0;
+
 }
