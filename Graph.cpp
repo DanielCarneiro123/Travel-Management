@@ -10,7 +10,7 @@
 
 using namespace std;
 
-double minPath;
+//double minPath;
 
 int Graph::getNumVertex() const {
     return vertexSet.size();
@@ -149,35 +149,47 @@ void Graph::initialize(const string &filename) {
     return rad * c;
 }*/
 
-double Graph::tspBT(int initialNode, vector<int> path){
+double Graph::tspBT(int initialNode, vector<Vertex*> &path){
     double minDist = numeric_limits<double>::max();
-    tsp(initialNode, 1, 0, minPath ,path);
+    vector<Vertex*> minPath;
+
+    Vertex* initialVert = findVertex(initialNode);
+    initialVert->setVisited(true);
+
+    tsp(initialVert, 0, 0, minDist ,path, minPath);
+    cout<< "Path: ";
+    for (auto v : minPath) {
+        cout << v->getId() << " ";
+    }
+    cout << endl;
+
     return minDist;
 }
 
-void Graph::tsp(int initialNode,int currInd, double currDist , double minDist, vector<int> path){
-    Vertex* initialVertex = findVertex(initialNode);
-    Vertex* currVertex = findVertex(currInd);
-    if (initialVertex == currVertex){
-        Vertex* vert = findVertex(currInd);
-        for (auto e : vert->getAdj()) {
+void Graph::tsp(Vertex* currVert, int visitedCount, double currDist , double &minDist, vector<Vertex*> &path, vector<Vertex*> &minPath) {
+    if (visitedCount == vertexSet.size() - 1){
+        for (auto e : currVert->getAdj()) {
             if (e->getDest()->getId() == 0) {
                 currDist += e->getWeight();
+                break;
             }
         }
         if (currDist < minDist) {
             minDist = currDist;
+            minPath = path;
+            minPath.push_back(currVert);
             //cout << vert->getPath() << endl;
         }
+        return;
     }
-    for (auto edge: currVertex->getAdj()) {
+    for (auto edge: currVert->getAdj()) {
         Vertex* dest = edge->getDest();
         double edgeDist = edge->getWeight();
-        if (!dest->isVisited() && (currDist + edgeDist < minDist)) {
+        if (!dest->isVisited()) {
             dest->setVisited(true);
-            dest->setPath(edge);
-            currDist += edgeDist;
-            tsp(dest->getId(), currInd + 1, currDist,  minDist, path);
+            path.push_back(currVert);
+            tsp(dest, visitedCount + 1, currDist + edge->getWeight(), minDist, path, minPath);
+            path.pop_back();
             dest->setVisited(false);
         }
     }

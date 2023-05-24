@@ -20,7 +20,7 @@ Graph readFiles::smallGraphs(const std::string &filename){
     unordered_set<string> set_nodes;
     set<pair<string,string>> set_network;
 
-    myFile.open("C:\\Users\\Daniel\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Toy-Graphs\\tourism.csv");
+    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Toy-Graphs\\stadiums.csv");
     getline(myFile, currentLine);    // ignore first line
     while (getline(myFile, currentLine)) {
         std::stringstream iss(currentLine);

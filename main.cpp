@@ -41,10 +41,11 @@ int main() {
 
     //vector<vector<double>> graph;
     //matrixForm(graph);
-    vector<int> path;
-    path.push_back(0);
+    vector<Vertex *> path;
+
     //vector<vector<double>> memo(graph.size(), vector<double>(graph.size(), -1));
-    return g.tspBT(0, path);
+    cout << g.tspBT(0, path) << endl;
+    return 0;
     //g.printPath();
 
 }

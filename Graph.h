@@ -52,10 +52,10 @@ public:
     std::vector<int> solveTSP();
 
     void
-    tsp(int initialNode, int currInd, double currDist, double minDist,
-        std::vector<int> path);
+    tsp(Vertex* currVertex, int currInd, double currDist, double &minDist,
+        std::vector<Vertex*> &path, std::vector<Vertex*> &minpath);
 
-    double tspBT(int initialNode, std::vector<int> path);
+    double tspBT(int initialNode, std::vector<Vertex*> &path);
 
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
