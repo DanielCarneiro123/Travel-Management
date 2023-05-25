@@ -10,6 +10,7 @@
 #include <queue>
 #include <limits>
 #include <algorithm>
+#include <unordered_set>
 #include "MutablePriorityQueue.h"
 
 #include "VertexEdge.h"
@@ -57,6 +58,8 @@ public:
 
     double tspBT(int initialNode, std::vector<Vertex*> &path);
 
+    double TriangleApprox();
+
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
 
@@ -71,7 +74,14 @@ protected:
     bool isVisited(int currInd, std::vector<int> &path);
 
 
+    std::vector<Edge *> prim();
 
+    int dfs(Vertex *vertex);
+
+
+    int dfs(Vertex *vertex, int &minCost);
+
+    void preOrderTraversal(Vertex *vertex, std::unordered_set<Vertex *> &visited, double &result);
 };
 
 void deleteMatrix(int **m, int n);

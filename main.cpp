@@ -38,13 +38,14 @@ using namespace std;
 int main() {
     readFiles rf;
     Graph g = rf.smallGraphs("shipping.csv");
+    Graph gextra = rf.extraFullyGraphs("edges_25.csv");
 
     //vector<vector<double>> graph;
     //matrixForm(graph);
     vector<Vertex *> path;
 
     //vector<vector<double>> memo(graph.size(), vector<double>(graph.size(), -1));
-    cout << g.tspBT(0, path) << endl;
+    cout << gextra.TriangleApprox() << endl;
     return 0;
     //g.printPath();
 

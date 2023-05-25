@@ -6,6 +6,7 @@
 #include "Graph.h"
 #include "VertexEdge.h"
 #include <cmath>
+#include <unordered_set>
 
 
 using namespace std;
@@ -138,6 +139,18 @@ void Graph::initialize(const string &filename) {
     }
 }
 
+/*double Vertex::dfs(Vertex* vertex) {
+    cout << vertex << " "; // show node order
+    int count = 1;
+    vertex->setVisited(true);
+    for (auto e : vertex->getAdj()) {
+        if (e->getDest()->getPath()) {
+                count += dfs(e->getDest());
+        }
+    }
+    return count;
+}*/
+
 /*double Graph::haversine(double lat1, double lat2, double lon1, double lon2){
     double dLat = (lat2 - lat1) * M_PI / 180.0;
     double dLon = (lon2 - lon1) * M_PI / 180.0;
@@ -194,6 +207,87 @@ void Graph::tsp(Vertex* currVert, int visitedCount, double currDist , double &mi
         }
     }
 }
+
+void preOrderTraversal(Vertex* vertex, std::vector<Vertex*>& mst) {
+    if (vertex == nullptr) {
+        return;
+    }
+    mst.push_back(vertex); // Add current vertex to MST
+    for (auto& e : vertex->getAdj()) {
+        Vertex* w = e->getDest();
+        if (w->getPath() == e) {
+            preOrderTraversal(w, mst);
+        }
+    }
+}
+
+std::vector<Edge*> Graph::prim() {
+    if (vertexSet.empty()) {
+        return std::vector<Edge*>();
+    }
+
+    // Reset auxiliary info
+    for (auto v : vertexSet) {
+        v->setDist(INF);
+        v->setPath(nullptr);
+        v->setVisited(false);
+    }
+
+    // Start with node 0
+    Vertex* startVertex = vertexSet[0];
+    startVertex->setDist(0);
+
+    // Initialize priority queue
+    MutablePriorityQueue<Vertex> q;
+    q.insert(startVertex);
+
+    std::vector<Edge*> mst; // Vector to store the MST edges
+
+    // Process vertices in the priority queue
+    while (!q.empty()) {
+        auto v = q.extractMin();
+        v->setVisited(true);
+        for (auto& edge : v->getAdj()) { // Loop variable changed to 'edge'
+            Vertex* w = edge->getDest(); // Access the destination vertex using 'edge'
+            if (!w->isVisited()) {
+                auto oldDist = w->getDist();
+                if (edge->getWeight() < oldDist) {
+                    w->setDist(edge->getWeight());
+                    w->setPath(edge);
+                    if (oldDist == INF) {
+                        q.insert(w);
+                    } else {
+                        q.decreaseKey(w);
+                    }
+                }
+            }
+        }
+        if (v->getPath()) {
+            mst.push_back(v->getPath()); // Add the edge to the MST
+        }
+    }
+
+    return mst;
+}
+
+
+
+double Graph::TriangleApprox() {
+    double result = 0;
+    std::vector<Edge*> mst = prim();
+    for (auto e: mst){
+        cout << e->getDest()->getId() << ' ';
+    }
+    cout << mst.back()->getWeight() << endl;
+    cout << mst.back()->getDest()->getId() << endl;
+    // Add the return to node 0
+    if (!mst.empty()) {
+        result += mst.back()->getWeight();
+    }
+    return result;
+}
+
+
 
 
 
