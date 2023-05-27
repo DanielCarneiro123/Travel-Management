@@ -20,7 +20,7 @@ Graph readFiles::smallGraphs(const std::string &filename){
     unordered_set<string> set_nodes;
     set<pair<string,string>> set_network;
 
-    myFile.open("C:\\Users\\Daniel\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_25.csv");
+    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_75.csv");
     getline(myFile, currentLine);    // ignore first line
     while (getline(myFile, currentLine)) {
         std::stringstream iss(currentLine);
@@ -54,7 +54,7 @@ Graph readFiles::extraFullyGraphs(const std::string &filename){
     unordered_set<string> set_nodes;
     set<pair<string,string>> set_network;
 
-    myFile.open("C:\\Users\\Daniel\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_75.csv");
+    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_900.csv");
     while (getline(myFile, currentLine)) {
         std::stringstream iss(currentLine);
         getline(iss, InitialNode, ',');

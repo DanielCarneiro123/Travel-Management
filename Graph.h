@@ -46,7 +46,7 @@ public:
 
     void printPath();
 
-    double PathCost(const std::vector<int> &path);
+    double PathCost(const std::vector<int> path);
 
     void permute(std::vector<int> &path, int start, double &minCost, std::vector<int> &bestPath);
 
@@ -58,7 +58,18 @@ public:
 
     double tspBT(int initialNode, std::vector<Vertex*> &path);
 
-    double TriangleApprox();
+    void TriangleApprox();
+
+
+    std::vector<Vertex *> tsp_v2();
+
+    void Prim();
+
+    double calculatePathDistance(const std::vector<Vertex *> &path);
+
+    void dfs(Vertex *currentVertex, std::vector<Vertex *> &path);
+
+    std::vector<Vertex *> preOrderTraversal(Vertex *vertex, std::vector<Vertex *> &mst);
 
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
@@ -74,14 +85,9 @@ protected:
     bool isVisited(int currInd, std::vector<int> &path);
 
 
-    std::vector<Edge *> prim();
-
-    int dfs(Vertex *vertex);
+    std::vector<Vertex *> prim();
 
 
-    int dfs(Vertex *vertex, int &minCost);
-
-    void preOrderTraversal(Vertex *vertex, std::unordered_set<Vertex *> &visited, double &result);
 };
 
 void deleteMatrix(int **m, int n);

@@ -6,6 +6,8 @@
 
 Vertex::Vertex(int id): id(id) {}
 
+
+
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
@@ -100,6 +102,16 @@ void Vertex::setProcesssing(bool processing) {
 
 void Vertex::setIndegree(unsigned int indegree) {
     this->indegree = indegree;
+}
+
+Edge * Vertex::addMSTEdge(Vertex *d, double w) {
+    auto newEdge = new Edge(this, d, w);
+    mstPath.push_back(newEdge);
+    return newEdge;
+}
+
+std::vector<Edge*> Vertex::getMST() const {
+    return this->mstPath;
 }
 
 void Vertex::setDist(double dist) {

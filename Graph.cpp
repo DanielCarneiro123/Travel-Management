@@ -208,23 +208,17 @@ void Graph::tsp(Vertex* currVert, int visitedCount, double currDist , double &mi
     }
 }
 
-void preOrderTraversal(Vertex* vertex, std::vector<Vertex*>& mst) {
-    if (vertex == nullptr) {
-        return;
+std::vector<Vertex*> Graph::preOrderTraversal(Vertex* vertex, std::vector<Vertex*>& mst) {
+    for(auto *v : vertexSet){
+        v->setVisited(false);
+        v->setPath(nullptr);
     }
-    mst.push_back(vertex); // Add current vertex to MST
-    for (auto& e : vertex->getAdj()) {
-        Vertex* w = e->getDest();
-        if (w->getPath() == e) {
-            preOrderTraversal(w, mst);
-        }
-    }
+    std::vector<Vertex *> res;
+    dfs(vertex,res);
+    return res;
 }
 
-std::vector<Edge*> Graph::prim() {
-    if (vertexSet.empty()) {
-        return std::vector<Edge*>();
-    }
+void Graph::Prim() {
 
     // Reset auxiliary info
     for (auto v : vertexSet) {
@@ -234,19 +228,24 @@ std::vector<Edge*> Graph::prim() {
     }
 
     // Start with node 0
-    Vertex* startVertex = vertexSet[0];
-    startVertex->setDist(0);
+    Vertex* s ;
+    for (auto v: vertexSet){
+        if (v->getId() == 0){
+            s = v;
+        }
+    }
+    s->setDist(0);
 
     // Initialize priority queue
     MutablePriorityQueue<Vertex> q;
-    q.insert(startVertex);
-
-    std::vector<Edge*> mst; // Vector to store the MST edges
-
+    q.insert(s);
     // Process vertices in the priority queue
     while (!q.empty()) {
         auto v = q.extractMin();
         v->setVisited(true);
+        if (v->getPath() != nullptr){
+            v->getPath()->getOrig()->addMSTEdge(v, v->getDist());
+        }
         for (auto& edge : v->getAdj()) { // Loop variable changed to 'edge'
             Vertex* w = edge->getDest(); // Access the destination vertex using 'edge'
             if (!w->isVisited()) {
@@ -262,30 +261,53 @@ std::vector<Edge*> Graph::prim() {
                 }
             }
         }
-        if (v->getPath()) {
-            mst.push_back(v->getPath()); // Add the edge to the MST
+    }
+}
+
+void Graph::dfs(Vertex *currentVertex, std::vector<Vertex*> &path) {
+    currentVertex->setVisited(true);
+    path.push_back(currentVertex); // Add current vertex to MST
+
+    for (auto& e : currentVertex->getMST()) {
+        Vertex *w = e->getDest();
+        if (!w->isVisited()) {
+            if (currentVertex->getPath() == nullptr) {
+                currentVertex->setPath(e);
+            }
+            dfs(w, path);
         }
     }
-
-    return mst;
 }
 
-
-
-double Graph::TriangleApprox() {
-    double result = 0;
-    std::vector<Edge*> mst = prim();
-    for (auto e: mst){
-        cout << e->getDest()->getId() << ' ';
+double Graph::calculatePathDistance(const std::vector<Vertex*>& path) {
+    double distance = 0.0;
+    for (int i = 0; i < path.size() ; i++) {
+        Vertex* currentVertex = path[i];
+        if (currentVertex->getPath() != nullptr){
+            distance += currentVertex->getPath()->getWeight();
+        }
+        else{
+            Vertex* nextVertex = path[(i + 1) % path.size()];
+            bool entered = false;
+            for (auto *e: currentVertex->getAdj()){
+                if (e->getDest() == nextVertex){
+                    distance += e->getWeight();
+                    entered = true;
+                    break;
+                }
+            }
+            if (entered == false) {
+                for (auto e: currentVertex->getAdj()){
+                    if (e->getDest()->getId() == 0){
+                        distance += e->getWeight();
+                    }
+                }
+            }
+        }
     }
-    cout << mst.back()->getWeight() << endl;
-    cout << mst.back()->getDest()->getId() << endl;
-    // Add the return to node 0
-    if (!mst.empty()) {
-        result += mst.back()->getWeight();
-    }
-    return result;
+    return distance;
 }
+
 
 
 

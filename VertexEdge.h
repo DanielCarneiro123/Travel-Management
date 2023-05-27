@@ -40,6 +40,8 @@ public:
     bool removeEdge(int destID);
     Edge *getEdgeTo(Vertex *destination) const;
     friend class MutablePriorityQueue<Vertex>;
+    Edge *addMSTEdge(Vertex *d, double w);
+    std::vector<Edge *> getMST() const;
 protected:
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges
@@ -50,10 +52,12 @@ protected:
     unsigned int indegree; // used by topsort
     double dist = 0;
     Edge *path = nullptr;
-
+    std::vector<Edge*> mstPath;
     std::vector<Edge *> incoming; // incoming edges
 
     int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
+
+
 
 };
 

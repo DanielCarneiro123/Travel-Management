@@ -39,14 +39,13 @@ int main() {
     readFiles rf;
     Graph g = rf.smallGraphs("shipping.csv");
     Graph gextra = rf.extraFullyGraphs("edges_25.csv");
-
-    //vector<vector<double>> graph;
-    //matrixForm(graph);
-    vector<Vertex *> path;
-
-    //vector<vector<double>> memo(graph.size(), vector<double>(graph.size(), -1));
-    cout << gextra.TriangleApprox() << endl;
+    gextra.Prim();
+    vector<Vertex*> mst;
+    auto arr = gextra.preOrderTraversal(gextra.findVertex(0), mst);
+    cout << gextra.calculatePathDistance(arr) << endl;
+    for (auto v: arr){
+        cout << v->getId() << " ";
+    }
     return 0;
     //g.printPath();
-
 }
