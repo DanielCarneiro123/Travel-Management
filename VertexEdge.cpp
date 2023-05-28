@@ -122,6 +122,22 @@ void Vertex::setPath(Edge *path) {
     this->path = path;
 }
 
+double Vertex::getLatitude() const{
+    return this->latitude;
+}
+
+double Vertex::getLongitude() const{
+    return this->latitude;
+}
+
+void Vertex::setLatitude(double latitude) {
+    this->latitude = latitude;
+}
+
+void Vertex::setLongitude(double longitude) {
+    this->latitude = longitude;
+}
+
 /********************** Edge  ****************************/
 
 Edge::Edge(Vertex *orig, Vertex *dest, double w): orig(orig), dest(dest), weight(w) {}
@@ -160,4 +176,8 @@ void Edge::setReverse(Edge *reverse) {
 
 void Edge::setFlow(double flow) {
     this->flow = flow;
+}
+
+void Edge::setWeight(double weight){
+    this->weight = weight;
 }

@@ -37,15 +37,20 @@ using namespace std;
 
 int main() {
     readFiles rf;
-    Graph g = rf.smallGraphs("shipping.csv");
+    Graph g = rf.edgesGraphs("shipping.csv");
     Graph gextra = rf.extraFullyGraphs("edges_25.csv");
-    gextra.Prim();
+    //funcoes para o 4.2
+    /*gextra.Prim();
     vector<Vertex*> mst;
     auto arr = gextra.preOrderTraversal(gextra.findVertex(0), mst);
     cout << gextra.calculatePathDistance(arr) << endl;
     for (auto v: arr){
         cout << v->getId() << " ";
-    }
+    } */
+    //fim das funcoes para o 4.2
+
+
+
     return 0;
     //g.printPath();
 }

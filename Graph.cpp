@@ -151,7 +151,11 @@ void Graph::initialize(const string &filename) {
     return count;
 }*/
 
-/*double Graph::haversine(double lat1, double lat2, double lon1, double lon2){
+double Graph::haversine(Vertex* v1, Vertex* v2){
+    double lat1 = v1->getLatitude();
+    double lon1 = v1->getLongitude();
+    double lat2 = v2->getLatitude();
+    double lon2 = v1->getLongitude();
     double dLat = (lat2 - lat1) * M_PI / 180.0;
     double dLon = (lon2 - lon1) * M_PI / 180.0;
     lat1 = (lat1) * M_PI / 180.0;
@@ -160,7 +164,39 @@ void Graph::initialize(const string &filename) {
     double rad = 6371;
     double c = 2 * asin(sqrt(a));
     return rad * c;
-}*/
+}
+
+bool Graph::hasCon(int v1_id, int v2_id){
+    bool connection = false;
+    auto v1 = findVertex(v1_id);
+    auto v2 = findVertex(v2_id);
+
+    for (auto edge: v1->getAdj()){
+        if (edge->getDest() == v2){
+            connection = true;
+            break;
+        }
+    }
+    return connection;
+}
+
+double Graph::connectingVertex(int v1_id, int v2_id){
+    auto v1 = findVertex(v1_id);
+    auto v2 = findVertex(v2_id);
+
+    if (!hasCon(v1_id, v2_id)) {
+        double distance = haversine(v1,v2);
+        return distance;
+    }
+
+    else{
+        for (auto edge :v1->getAdj()){
+            if(edge->getDest() == v2){
+                return edge->getWeight();
+            }
+        }
+    }
+}
 
 double Graph::tspBT(int initialNode, vector<Vertex*> &path){
     double minDist = numeric_limits<double>::max();
@@ -308,74 +344,3 @@ double Graph::calculatePathDistance(const std::vector<Vertex*>& path) {
     return distance;
 }
 
-
-
-
-
-
-
-
-/*
-// Função para calcular o custo total de um caminho
-double Graph::PathCost(const std::vector<int>& path) {
-    double cost = 0.0;
-    for (int i = 0; i < path.size() - 1; ++i) {
-        auto vertex = findVertex(path[i]);
-        auto nextVertex = findVertex(path[i + 1]);
-        for (auto v: vertex->getAdj()){
-            if (v->getDest() == nextVertex){
-                auto edge = v;
-                cost += edge->getWeight();
-                break;
-            }
-        }
-    }
-
-    auto vertex1 = findVertex(path.back());
-    auto vertex2 = findVertex(0);
-    for (auto v: vertex1->getAdj()){
-        if (v->getDest() == vertex2){
-            auto edge = v;
-            cost += edge->getWeight();
-            break;
-        }
-    }
-
-return cost;
-}
-
-
-// Função auxiliar para encontrar todas as permutações possíveis dos vértices
-void Graph::permute(std::vector<int>& path, int start, double& minCost, std::vector<int>& bestPath) {
-    if (start == path.size()) {
-        double cost = PathCost(path);
-        if (cost < minCost) {
-            minCost = cost;
-            bestPath = path;
-        }
-        return;
-    }
-
-    for (int i = start; i < path.size(); ++i) {
-        std::swap(path[start], path[i]);
-        permute(path, start + 1, minCost, bestPath);
-        std::swap(path[start], path[i]);
-    }
-}
-
-// Função principal para resolver o problema do caixeiro-viajante
-std::vector<int> Graph::solveTSP() {
-    std::vector<int> path;
-    for (auto& vertex : getVertexSet()) {
-        path.push_back(vertex->getId());
-    }
-
-    double minCost = std::numeric_limits<double>::max();
-    std::vector<int> bestPath;
-
-    permute(path, 1, minCost, bestPath);
-
-    bestPath.push_back(bestPath[0]);
-    return bestPath;
-}
-*/

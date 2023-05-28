@@ -42,6 +42,10 @@ public:
     friend class MutablePriorityQueue<Vertex>;
     Edge *addMSTEdge(Vertex *d, double w);
     std::vector<Edge *> getMST() const;
+    double getLatitude() const;
+    double getLongitude() const;
+    void setLatitude(double latitude) ;
+    void setLongitude(double longitude);
 protected:
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges
@@ -54,7 +58,8 @@ protected:
     Edge *path = nullptr;
     std::vector<Edge*> mstPath;
     std::vector<Edge *> incoming; // incoming edges
-
+    double latitude;
+    double longitude;
     int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
 
 
@@ -77,6 +82,7 @@ public:
     void setSelected(bool selected);
     void setReverse(Edge *reverse);
     void setFlow(double flow);
+    void setWeight(double weight);
 protected:
     Vertex * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
@@ -89,6 +95,7 @@ protected:
     Edge *reverse = nullptr;
 
     double flow; // for flow-related problems
+
 };
 
 #endif /* DA_TP_CLASSES_VERTEX_EDGE */

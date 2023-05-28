@@ -88,6 +88,9 @@ protected:
     std::vector<Vertex *> prim();
 
 
+    double haversine(Vertex *v1, Vertex *v2);
+
+    bool hasCon(int v1_id, int v2_id);
 };
 
 void deleteMatrix(int **m, int n);

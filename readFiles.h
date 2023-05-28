@@ -10,7 +10,7 @@
 
 class readFiles {
 public:
-    Graph smallGraphs(const std::string &filename);
+    Graph edgesGraphs(const std::string &filename);
     Graph extraFullyGraphs(const std::string &filename);
 };
 
