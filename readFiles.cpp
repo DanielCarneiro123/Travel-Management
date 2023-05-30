@@ -11,7 +11,7 @@
 #include "string"
 
 using namespace std;
-
+/*
 Graph readFiles::edgesGraphs(const std::string &filename){
     string InitialNode, DestinyNode, distance;
     Graph _graph;
@@ -78,7 +78,7 @@ Graph readFiles::extraFullyGraphs(const std::string &filename){
     myFile.close();
     return _graph;
 }
-
+*/
 Graph readFiles::edgesGraphs(const std::string &filename){
     string InitialNode, DestinyNode, distance;
     Graph _graph;
@@ -87,7 +87,7 @@ Graph readFiles::edgesGraphs(const std::string &filename){
     unordered_set<string> set_nodes;
     set<pair<string,string>> set_network;
 
-    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges.csv");
+    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_75.csv");
     getline(myFile, currentLine);    // ignore first line
     while (getline(myFile, currentLine)) {
         std::stringstream iss(currentLine);
@@ -100,10 +100,10 @@ Graph readFiles::edgesGraphs(const std::string &filename){
         double distanceDoble = std::stod(distance);
 
         if (set_nodes.insert(InitialNode).second) {
-            _graph.addVertex(initialNodeId);
+            _graph.addVertexV2(initialNodeId);
         }
         if (set_nodes.insert(DestinyNode).second) {
-            _graph.addVertex(destinyNodeId);
+            _graph.addVertexV2(destinyNodeId);
         }
         if (set_network.insert(std::make_pair(InitialNode, DestinyNode)).second) {
             _graph.addBidirectionalEdge(initialNodeId, destinyNodeId, distanceDoble);
@@ -112,3 +112,52 @@ Graph readFiles::edgesGraphs(const std::string &filename){
     myFile.close();
     return _graph;
 }
+/*
+Graph readFiles::vertexGraphs(const std::string &filename) {
+    std::string Node, longitude, latitude, InitialNode, DestinyNode, distance;
+    Graph _graph;
+    std::ifstream myFile;
+    std::string currentLine;
+
+
+    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Real-world Graphs\\graph2\\nodes.csv");
+    getline(myFile, currentLine); // ignore first line
+    while (getline(myFile, currentLine)) {
+        std::stringstream iss(currentLine);
+        getline(iss, Node, ',');
+        getline(iss, longitude, ',');
+        getline(iss, latitude, ',');
+
+        int NodeId = std::stoi(Node);
+        double dlongitude = std::stod(longitude);
+        double dlatitude = std::stod(latitude);
+
+
+        _graph.addVertexV2(NodeId, dlongitude, dlatitude);
+    }
+    myFile.close();
+
+    vector<Vertex*>vertexSet = _graph.getVertexSet();
+    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Real-world Graphs\\graph2\\edges.csv");
+    getline(myFile, currentLine);
+    while (getline(myFile, currentLine)) {
+        std::stringstream iss(currentLine);
+        getline(iss, InitialNode, ',');
+        getline(iss, DestinyNode, ',');
+        getline(iss, distance, ',');
+
+        int initialNodeId = std::stoi(InitialNode);
+        int destinyNodeId = std::stoi(DestinyNode);
+        double distanceDoble = std::stod(distance);
+
+        Vertex* v1 = vertexSet[initialNodeId];
+        Vertex* v2 = vertexSet[destinyNodeId];
+
+        _graph.addBidirectionalEdge2(v1, v2, distanceDoble);
+
+    }
+    myFile.close();
+
+
+    return _graph;
+}*/

@@ -4,7 +4,7 @@
 
 /************************* Vertex  **************************/
 
-Vertex::Vertex(int id): id(id) {}
+Vertex::Vertex(int id, double longitude, double latitude): id(id), longitude(longitude), latitude(latitude) {}
 
 
 
@@ -137,6 +137,7 @@ void Vertex::setLatitude(double latitude) {
 void Vertex::setLongitude(double longitude) {
     this->latitude = longitude;
 }
+
 
 /********************** Edge  ****************************/
 

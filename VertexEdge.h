@@ -18,7 +18,9 @@ class Edge;
 
 class Vertex {
 public:
-    Vertex(int id);
+
+    Vertex(int id, double longitude, double latitude);
+
     bool operator<(Vertex & vertex) const; // // required by MutablePriorityQueue
 
     int getId() const;
@@ -46,6 +48,9 @@ public:
     double getLongitude() const;
     void setLatitude(double latitude) ;
     void setLongitude(double longitude);
+
+    void updateWeight(Vertex* destination, double newWeight);
+
 protected:
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges

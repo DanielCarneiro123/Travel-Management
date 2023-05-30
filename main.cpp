@@ -37,20 +37,44 @@ using namespace std;
 
 int main() {
     readFiles rf;
-    Graph g = rf.edgesGraphs("shipping.csv");
-    Graph gextra = rf.extraFullyGraphs("edges_25.csv");
+    //Graph g = rf.edgesGraphs("shipping.csv");
+    Graph gextra = rf.edgesGraphs("edges_25.csv");
+    //gextra = rf.extraFullyGraphs("edges_25.csv");
+    cout << "langonha" << endl;
     //funcoes para o 4.2
     /*gextra.Prim();
-    vector<Vertex*> mst;
-    auto arr = gextra.preOrderTraversal(gextra.findVertex(0), mst);
+    auto arr = gextra.preOrderTraversal(gextra.findVertex(0));
     cout << gextra.calculatePathDistance(arr) << endl;
     for (auto v: arr){
         cout << v->getId() << " ";
-    } */
+    }*/
     //fim das funcoes para o 4.2
 
+    //gextra.tspCombined();
 
 
+    /*for (auto elem : gextra.getVertexSet()) {
+        cout << elem->getId() << " ";
+    }*/
+
+    gextra.Prim();
+    gextra.preOrderTraversal(gextra.findVertex(0));
+    auto subgraph = gextra.createSubgraph();
+    auto ham = subgraph.convertToHamiltonianPath();
+
+    for (auto v: ham){
+        cout << v->getId() << endl;
+    }
+
+
+    /*for (auto v : oddVertices) {
+        oddGraph.addVertexV2(v->getId(), v->getLongitude(), v->getLatitude());
+    }*/
+
+    //auto arr2 = gextra.findMinimumCostPerfectMatching(arr);
+
+    //as arestas do emparelhamento perfeito minimo a MST
+    //ciclo eureliano
     return 0;
     //g.printPath();
 }

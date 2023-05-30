@@ -7,6 +7,7 @@
 #include "VertexEdge.h"
 #include <cmath>
 #include <unordered_set>
+#include <stack>
 
 
 using namespace std;
@@ -50,13 +51,19 @@ int Graph::findVertexIdx(const int &id) const {
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
-bool Graph::addVertex(const int &id) {
+/*bool Graph::addVertex(const int &id) {
     if (findVertex(id) != nullptr)
         return false;
     vertexSet.push_back(new Vertex(id));
     return true;
-}
+}*/
 
+bool Graph::addVertexV2(const int &id, double longitude, double latitude) {
+    if (findVertex(id) != nullptr)
+        return false;
+    vertexSet.push_back(new Vertex(id, longitude, latitude));
+    return true;
+}
 
 
 /*
@@ -78,6 +85,18 @@ bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
+    auto e1 = v1->addEdge(v2, w);
+    auto e2 = v2->addEdge(v1, w);
+    e1->setReverse(e2);
+    e2->setReverse(e1);
+    return true;
+}
+
+bool Graph::addBidirectionalEdge2(Vertex* &v1, Vertex* &v2, double w) {
+
+    if (v1 == nullptr || v2 == nullptr){
+        return false;}
+
     auto e1 = v1->addEdge(v2, w);
     auto e2 = v2->addEdge(v1, w);
     e1->setReverse(e2);
@@ -108,7 +127,7 @@ Graph::~Graph() {
     deleteMatrix(pathMatrix, vertexSet.size());
 }
 
-void Graph::initialize(const string &filename) {
+/*void Graph::initialize(const string &filename) {
 
     fstream file;
     file.open("../Toy-Graphs/" + filename, ios::in);
@@ -137,7 +156,7 @@ void Graph::initialize(const string &filename) {
         }
         file.close();
     }
-}
+}*/
 
 /*double Vertex::dfs(Vertex* vertex) {
     cout << vertex << " "; // show node order
@@ -166,10 +185,8 @@ double Graph::haversine(Vertex* v1, Vertex* v2){
     return rad * c;
 }
 
-bool Graph::hasCon(int v1_id, int v2_id){
+bool Graph::hasCon(Vertex* v1, Vertex* v2){
     bool connection = false;
-    auto v1 = findVertex(v1_id);
-    auto v2 = findVertex(v2_id);
 
     for (auto edge: v1->getAdj()){
         if (edge->getDest() == v2){
@@ -180,7 +197,9 @@ bool Graph::hasCon(int v1_id, int v2_id){
     return connection;
 }
 
-double Graph::connectingVertex(int v1_id, int v2_id){
+
+
+/*double Graph::connectingVertex(int v1_id, int v2_id){
     auto v1 = findVertex(v1_id);
     auto v2 = findVertex(v2_id);
 
@@ -196,7 +215,7 @@ double Graph::connectingVertex(int v1_id, int v2_id){
             }
         }
     }
-}
+}*/
 
 double Graph::tspBT(int initialNode, vector<Vertex*> &path){
     double minDist = numeric_limits<double>::max();
@@ -244,7 +263,7 @@ void Graph::tsp(Vertex* currVert, int visitedCount, double currDist , double &mi
     }
 }
 
-std::vector<Vertex*> Graph::preOrderTraversal(Vertex* vertex, std::vector<Vertex*>& mst) {
+std::vector<Vertex*> Graph::preOrderTraversal(Vertex* vertex) {
     for(auto *v : vertexSet){
         v->setVisited(false);
         v->setPath(nullptr);
@@ -315,7 +334,7 @@ void Graph::dfs(Vertex *currentVertex, std::vector<Vertex*> &path) {
     }
 }
 
-double Graph::calculatePathDistance(const std::vector<Vertex*>& path) {
+double Graph::calculatePathDistance(const std::vector<Vertex*>& path) { //testar soma dos paths
     double distance = 0.0;
     for (int i = 0; i < path.size() ; i++) {
         Vertex* currentVertex = path[i];
@@ -324,23 +343,320 @@ double Graph::calculatePathDistance(const std::vector<Vertex*>& path) {
         }
         else{
             Vertex* nextVertex = path[(i + 1) % path.size()];
-            bool entered = false;
-            for (auto *e: currentVertex->getAdj()){
-                if (e->getDest() == nextVertex){
-                    distance += e->getWeight();
-                    entered = true;
-                    break;
-                }
-            }
-            if (entered == false) {
-                for (auto e: currentVertex->getAdj()){
-                    if (e->getDest()->getId() == 0){
-                        distance += e->getWeight();
-                    }
-                }
-            }
+            distance += getDistance(currentVertex, nextVertex);
         }
     }
     return distance;
 }
+
+double Graph::getDistance(Vertex* v1, Vertex* v2){
+
+    for (auto edge: v1->getAdj()){
+        if (edge->getDest() == v2){
+            return edge->getWeight();
+        }
+    }
+    return haversine(v1,v2);
+}
+
+Graph Graph::createSubgraph() {
+    Graph subgraph;
+
+    // Adicione os vértices da MST original ao subgrafo
+    for (auto v : vertexSet) {
+        subgraph.addVertexV2(v->getId(), v->getLongitude(), v->getLatitude());
+    }
+
+    // Adicione as arestas da MST original ao subgrafo
+    for (auto v : vertexSet) {
+        for (auto& edge : v->getMST()) {
+            subgraph.addBidirectionalEdge(edge->getOrig()->getId(), edge->getDest()->getId(), edge->getWeight());
+        }
+    }
+
+    return subgraph;
+}
+
+std::vector<Vertex*> Graph::findEulerianCircuit() {
+    std::vector<Vertex*> circuit;
+
+    Vertex* startVertex = nullptr;
+    for (auto v : vertexSet) {
+        if (v->getIndegree() > 0) {
+            startVertex = v;
+            break;
+        }
+    }
+
+
+    if (startVertex == nullptr) {
+        return circuit;
+    }
+
+
+    std::stack<Vertex*> vertexStack;
+    vertexStack.push(startVertex);
+
+    while (!vertexStack.empty()) {
+        Vertex* currentVertex = vertexStack.top();
+        if (currentVertex->getAdj().empty()) {
+            circuit.push_back(currentVertex);
+            vertexStack.pop();
+        } else {
+            Edge* edge = currentVertex->getAdj().front();
+            edge->setSelected(true);
+            vertexStack.push(edge->getDest());
+            currentVertex->getIncoming().push_back(edge);
+        }
+    }
+
+    return circuit;
+}
+
+std::vector<Vertex*> Graph::convertToHamiltonianPath() { //mal implementada
+    
+    std::vector<Vertex*> hamiltonianPath;
+
+
+    Vertex* startVertex = findVertex(0);
+    hamiltonianPath.push_back(startVertex);
+
+
+    while (hamiltonianPath.size() < vertexSet.size()) {
+        Vertex* currentVertex = hamiltonianPath.back();
+        for (auto& edge : currentVertex->getAdj()) {
+            Vertex* nextVertex = edge->getDest();
+            if (std::find(hamiltonianPath.begin(), hamiltonianPath.end(), nextVertex) == hamiltonianPath.end()) {
+                hamiltonianPath.push_back(nextVertex);
+                break;
+            }
+        }
+    }
+
+    return hamiltonianPath;
+}
+
+
+
+/*
+Vertex* findClosestVertex(Vertex* v, const vector<Vertex*>& vertices) {
+    Vertex* closest = nullptr;
+    double minDistance = INF;
+
+    for (auto vertex : vertices) {
+        if (v != vertex) {
+            for (auto e: vertex->getAdj()) {
+                double distance = calculateDistance(v, e->getDest());
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closest = vertex;
+                }
+            }
+        }
+    }
+    return closest;
+}
+
+vector<Vertex*> Graph::getEulerianTour(vector<Vertex*> mst) {
+    vector<Vertex*> tour;
+
+    stack<Vertex*> verticesStack;
+    vector<Vertex*> currentTour;
+
+    verticesStack.push(mst[0]);
+
+    while (!verticesStack.empty()) {
+        Vertex* currentVertex = verticesStack.top();
+        bool foundUnvisitedEdge = false;
+
+        for (Edge* edge : currentVertex->getAdj()) {
+            if (!edge->getVisit()) {
+                edge->setVisit(true);
+                verticesStack.push(edge->getDest());
+                currentTour.push_back(currentVertex);
+                foundUnvisitedEdge = true;
+                break;
+            }
+        }
+
+        if (!foundUnvisitedEdge) {
+
+            tour.push_back(currentVertex);
+            verticesStack.pop();
+        }
+    }
+
+
+    reverse(currentTour.begin(), currentTour.end());
+    tour.insert(tour.end(), currentTour.begin(), currentTour.end());
+
+    return tour;
+}
+
+std::vector<Vertex*> findMinimumCostPerfectMatching(const std::vector<Vertex*>& oddVertices) {
+    int numOddVertices = oddVertices.size();
+    std::vector<Vertex*> matching(numOddVertices, nullptr);
+    std::vector<bool> visited(numOddVertices, false);
+    std::vector<double> slack(numOddVertices, std::numeric_limits<double>::max());
+
+    for (int i = 0; i < numOddVertices; i++) {
+        double minWeight = std::numeric_limits<double>::max();
+        int minIndex = -1;
+
+        for (int j = 0; j < numOddVertices; j++) {
+            if (!visited[j]) {
+                double weight = 0;
+                //double weight = oddVertices[i]->getWeightTo(oddVertices[j]);
+                for(auto *e : oddVertices[i]->getAdj()){
+                    if(e->getDest() == oddVertices[j]){
+                        weight = e->getWeight();
+                    }
+                }
+                if (weight < slack[j]) {
+                    slack[j] = weight;
+                }
+
+                if (slack[j] < minWeight) {
+                    minWeight = slack[j];
+                    minIndex = j;
+                }
+            }
+        }
+
+        for (int j = 0; j < numOddVertices; j++) {
+
+            double weight3 = 0;
+            //double weight = oddVertices[j]->getWeightTo(oddVertices[minIndex]);
+            for(auto *e : oddVertices[j]->getAdj()){
+                if(e->getDest() == oddVertices[minIndex]){
+                    weight3 = e->getWeight();
+                }
+            }
+
+            if (visited[j]) {
+                oddVertices[j]->setDist(minWeight);
+            } else if (weight3 == minWeight) {
+                visited[j] = true;
+            }
+        }
+    }
+
+    for (int i = 0; i < numOddVertices; i++) {
+        if (matching[i] == nullptr) {
+            double weight2 = 0;
+            for (int j = 0; j < numOddVertices; j++) {
+
+                for(auto *e : oddVertices[i]->getAdj()){
+                    if(e->getDest() == oddVertices[j]){
+                        weight2 = e->getWeight();
+                    }
+                }
+
+                if (matching[j] == nullptr && weight2 == 0) {
+                    matching[i] = oddVertices[j];
+                    matching[j] = oddVertices[i];
+                    break;
+                }
+            }
+        }
+    }
+
+    return matching;
+}
+/*
+//Função base
+
+void Graph::tspCombined() {
+    //dividir o grapho em subpaths usando divide and conquer
+    vector<vector<Vertex*>> subPaths = divideGraph(vertexSet);
+
+    vector<Vertex*> finalPath;
+
+    for (const vector<Vertex*>& subPath : subPaths) {
+        //dividir em clusters
+        vector<vector<Vertex*>> clusters = clusteringFunction(subPath);
+
+        vector<Vertex*> clusterPath;
+        //fazer 2step para cada cluster
+        for (const vector<Vertex*>& cluster : clusters) {
+            vector<Vertex *> clusterPath = tspTwoStepApproximation(cluster);
+            finalPath.insert(finalPath.end(), clusterPath.begin(), clusterPath.end());
+        }
+    }
+    for (int i = 0; i<finalPath.size()-1;i++) {
+        cout << finalPath[i]->getId() << " ";
+    }
+}
+
+vector<vector<Vertex*>> Graph::divideGraph(const vector<Vertex*> vertexes) {
+    vector<vector<Vertex*>> subPaths;
+    const size_t subPathSize = vertexes.size() / 2;
+
+    for (int i = 0; i< vertexes.size(); i+=subPathSize) {
+        vector<Vertex*> subPath;
+
+        for (int j = 1; j < i + subPathSize; j++) {
+            subPath.push_back(vertexes[j]);
+        }
+
+        subPaths.push_back(subPath);
+    }
+
+    return subPaths;
+}
+
+vector<Vertex*> Graph::tspTwoStepApproximation(const vector<Vertex*>& cluster) {
+    // Step 1: Find the vertex with the minimum degree in the cluster
+    Vertex* minDegreeVertex = nullptr;
+    int minDegree = INT_MAX;
+
+    for (Vertex* vertex : cluster) {
+        int degree = vertex->getAdj().size();
+        if (degree < minDegree) {
+            minDegree = degree;
+            minDegreeVertex = vertex;
+        }
+    }
+
+    // Step 2: Perform a Preorder Traversal starting from the vertex with the minimum degree
+    vector<Vertex*> clusterPath;
+    clusterPath = preOrderTraversal2(minDegreeVertex, cluster);
+
+    return clusterPath;
+}
+
+std::vector<Vertex*> Graph::preOrderTraversal2(Vertex* vertex, vector<Vertex*> cluster) {
+    for(auto *v : cluster){
+        v->setVisited(false);
+        v->setPath(nullptr);
+    }
+    std::vector<Vertex *> res;
+    dfs(vertex,res);
+    return res;
+}
+
+vector<vector<Vertex*>> Graph::clusteringFunction(const vector<Vertex*>& vertices) {
+    vector<vector<Vertex*>> clusters;
+
+    // Definir o número de clusters com base no tamanho do grafo
+    int numClusters = ceil(sqrt(vertices.size()));  // Número de clusters proporcional à raiz quadrada do tamanho do grafo
+
+    // Implementar a lógica para agrupar os vértices em clusters
+    // com base nas características do grafo e nos novos dados
+
+    // Exemplo: Dividir os vértices em clusters aproximadamente iguais
+    int verticesPerCluster = vertices.size() / numClusters;
+
+    int currentIndex = 0;
+    for (int i = 0; i < numClusters; i++) {
+        vector<Vertex*> cluster;
+        for (int j = 0; j < verticesPerCluster; j++) {
+            cluster.push_back(vertices[currentIndex]);
+            currentIndex++;
+        }
+        clusters.push_back(cluster);
+    }
+
+    return clusters;
+}*/
 

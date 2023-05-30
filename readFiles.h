@@ -12,6 +12,8 @@ class readFiles {
 public:
     Graph edgesGraphs(const std::string &filename);
     Graph extraFullyGraphs(const std::string &filename);
+
+    Graph vertexGraphs(const std::string &filename);
 };
 
 

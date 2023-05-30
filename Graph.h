@@ -69,7 +69,27 @@ public:
 
     void dfs(Vertex *currentVertex, std::vector<Vertex *> &path);
 
-    std::vector<Vertex *> preOrderTraversal(Vertex *vertex, std::vector<Vertex *> &mst);
+    std::vector<Vertex *> preOrderTraversal(Vertex *vertex);
+
+    bool addVertexV2(const int &id, double longitude = 0, double latitude = 0);
+
+    std::vector<std::vector<Vertex*>> divideGraph(const std::vector<Vertex*> vertexSet);
+    std::vector<std::vector<Vertex*>> clusteringFunction(const std::vector<Vertex*>& subPath);
+
+    void tspCombined();
+
+    std::vector<Vertex *> OddVertex();
+
+    std::vector<int> findMinimumCostPerfectMatching(const std::vector<Vertex *> &oddVertices);
+
+    std::vector<Vertex*> findEulerianCircuit();
+
+    Graph createSubgraph();
+
+
+    bool addBidirectionalEdge2(Vertex *&v1, Vertex *&v2, double w);
+
+    std::vector<Vertex*> convertToHamiltonianPath();
 
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
@@ -90,7 +110,15 @@ protected:
 
     double haversine(Vertex *v1, Vertex *v2);
 
-    bool hasCon(int v1_id, int v2_id);
+    bool hasCon(Vertex* v1, Vertex* v2);
+
+
+
+    std::vector<Vertex *> preOrderTraversal2(Vertex *vertex, std::vector<Vertex *> cluster);
+
+    std::vector<Vertex *> tspTwoStepApproximation(const std::vector<Vertex *> &cluster);
+
+    double getDistance(Vertex *v1, Vertex *v2);
 };
 
 void deleteMatrix(int **m, int n);
