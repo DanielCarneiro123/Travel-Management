@@ -58,13 +58,30 @@ int main() {
     }*/
 
     gextra.Prim();
-    gextra.preOrderTraversal(gextra.findVertex(0));
-    auto subgraph = gextra.createSubgraph();
-    auto ham = subgraph.convertToHamiltonianPath();
-
-    for (auto v: ham){
+    auto mst = gextra.createMST();
+    //gextra.preOrderTraversal(gextra.findVertex(0));
+    auto oddV = mst.OddVertex();
+    for (auto v: oddV){
         cout << v->getId() << endl;
     }
+    auto subgraph = mst.createSubgraph(oddV);
+    subgraph.MinimumPerfectMatching();
+
+
+    //juntar mst ao getMST dos nós do subgraph
+
+    mst.uniteGraphs(subgraph);
+    auto cycles = mst.findEulerianCycles();
+
+
+    for (auto vect: cycles) {
+        for (auto v: vect){
+            cout << v->getId() << " ";
+        }
+
+    }
+    cout << endl;
+
 
 
     /*for (auto v : oddVertices) {

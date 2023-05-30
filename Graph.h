@@ -84,12 +84,20 @@ public:
 
     std::vector<Vertex*> findEulerianCircuit();
 
-    Graph createSubgraph();
+    Graph createSubgraph(const std::vector<Vertex*> &oddV);
 
 
     bool addBidirectionalEdge2(Vertex *&v1, Vertex *&v2, double w);
 
     std::vector<Vertex*> convertToHamiltonianPath();
+
+    void MinimumPerfectMatching();
+
+    void uniteGraphs(Graph &graph);
+
+    Graph createMST();
+
+    std::vector<std::vector<Vertex*>> findEulerianCycles();
 
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
@@ -119,6 +127,14 @@ protected:
     std::vector<Vertex *> tspTwoStepApproximation(const std::vector<Vertex *> &cluster);
 
     double getDistance(Vertex *v1, Vertex *v2);
+
+    Vertex *findNearestVertex(Vertex *&vertex, Graph &graph);
+
+
+    std::vector<std::pair<Vertex *, Vertex *>>
+    findMissingPoints(const Graph &oddDegreeSubgraph, Graph &minimumSpanningTree);
+
+    void DFS(Vertex* v, std::vector<Edge*>& visitedEdges, std::vector<std::vector<Vertex*>>& cycles);
 };
 
 void deleteMatrix(int **m, int n);

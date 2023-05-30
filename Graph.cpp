@@ -127,48 +127,6 @@ Graph::~Graph() {
     deleteMatrix(pathMatrix, vertexSet.size());
 }
 
-/*void Graph::initialize(const string &filename) {
-
-    fstream file;
-    file.open("../Toy-Graphs/" + filename, ios::in);
-    if (!file)
-    {
-        cerr << "Error: file " << filename << " not found" << endl;
-        return;
-    }
-    if (file.is_open())
-    {
-        string numNodes, InitialNode, DestinyNode, capacity, duration;
-        getline(file, numNodes, ' ');
-        this->addVertex(stoi(numNodes)+1);
-        file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        while (!file.eof())
-        {
-            getline(file, InitialNode, ' ');
-            getline(file, DestinyNode, ' ');
-            getline(file, capacity, ' ');
-            getline(file, duration);
-            try {
-                this->addEdge(stoi(InitialNode), stoi(DestinyNode), stoi(capacity));
-            } catch (const exception &e) {
-                return;
-            }
-        }
-        file.close();
-    }
-}*/
-
-/*double Vertex::dfs(Vertex* vertex) {
-    cout << vertex << " "; // show node order
-    int count = 1;
-    vertex->setVisited(true);
-    for (auto e : vertex->getAdj()) {
-        if (e->getDest()->getPath()) {
-                count += dfs(e->getDest());
-        }
-    }
-    return count;
-}*/
 
 double Graph::haversine(Vertex* v1, Vertex* v2){
     double lat1 = v1->getLatitude();
@@ -199,23 +157,6 @@ bool Graph::hasCon(Vertex* v1, Vertex* v2){
 
 
 
-/*double Graph::connectingVertex(int v1_id, int v2_id){
-    auto v1 = findVertex(v1_id);
-    auto v2 = findVertex(v2_id);
-
-    if (!hasCon(v1_id, v2_id)) {
-        double distance = haversine(v1,v2);
-        return distance;
-    }
-
-    else{
-        for (auto edge :v1->getAdj()){
-            if(edge->getDest() == v2){
-                return edge->getWeight();
-            }
-        }
-    }
-}*/
 
 double Graph::tspBT(int initialNode, vector<Vertex*> &path){
     double minDist = numeric_limits<double>::max();
@@ -271,6 +212,58 @@ std::vector<Vertex*> Graph::preOrderTraversal(Vertex* vertex) {
     std::vector<Vertex *> res;
     dfs(vertex,res);
     return res;
+}
+
+vector<Vertex*> Graph::OddVertex() {
+    vector<Vertex*> result;
+    for (auto v: vertexSet){
+        if (v->getAdj().size() % 2 == 1){
+            cout << v->getId() << endl;
+            result.push_back(v);
+        }
+    }
+    return result;
+}
+
+void Graph::MinimumPerfectMatching() {
+    vector<Vertex*> oddVertices = OddVertex(); // Obtém os vértices ímpares da MST
+
+    while (!oddVertices.empty()) {
+        Vertex* u = oddVertices.back(); // Escolha um vértice ímpar arbitrário
+        oddVertices.pop_back();
+
+        double minWeight = INF;
+        Vertex* minVertex = nullptr;
+
+        // Encontre a aresta de menor peso conectada ao vértice u
+        for (auto& edge : u->getAdj()) {
+            Vertex* v = edge->getDest();
+
+            if (v->isVisited()) {
+                continue; // Ignore arestas já visitadas
+            }
+
+            if (edge->getWeight() < minWeight) {
+                minWeight = edge->getWeight();
+                minVertex = v;
+            }
+        }
+
+        if (minVertex != nullptr) {
+            // Adicione a aresta de menor peso ao emparelhamento perfeito mínimo
+            u->addMSTEdge(minVertex, minWeight);
+            cout << u->getMST().back()->getOrig()->getId() << " - ";
+            cout << u->getMST().back()->getWeight() << " - ";
+            cout << u->getMST().back()->getDest()->getId() << endl;
+            // Marque os vértices como visitados
+            u->setVisited(true);
+            minVertex->setVisited(true);
+
+            // Remova os vértices do vetor de vértices ímpares
+            oddVertices.erase(std::remove(oddVertices.begin(), oddVertices.end(), u), oddVertices.end());
+            oddVertices.erase(std::remove(oddVertices.begin(), oddVertices.end(), minVertex), oddVertices.end());
+        }
+    }
 }
 
 void Graph::Prim() {
@@ -359,7 +352,7 @@ double Graph::getDistance(Vertex* v1, Vertex* v2){
     return haversine(v1,v2);
 }
 
-Graph Graph::createSubgraph() {
+Graph Graph::createMST() {
     Graph subgraph;
 
     // Adicione os vértices da MST original ao subgrafo
@@ -377,57 +370,87 @@ Graph Graph::createSubgraph() {
     return subgraph;
 }
 
-std::vector<Vertex*> Graph::findEulerianCircuit() {
-    std::vector<Vertex*> circuit;
+Graph Graph::createSubgraph(const vector<Vertex*> &oddV) {
+    Graph subgraph;
 
-    Vertex* startVertex = nullptr;
-    for (auto v : vertexSet) {
-        if (v->getIndegree() > 0) {
-            startVertex = v;
-            break;
+    for (auto v : oddV) {
+        subgraph.addVertexV2(v->getId(), v->getLongitude(), v->getLatitude());
+    }
+
+    for (auto v : oddV) {
+        for (auto& edge : v->getAdj()) {
+            subgraph.addEdge(edge->getOrig()->getId(), edge->getDest()->getId(), edge->getWeight());
         }
     }
 
-
-    if (startVertex == nullptr) {
-        return circuit;
-    }
-
-
-    std::stack<Vertex*> vertexStack;
-    vertexStack.push(startVertex);
-
-    while (!vertexStack.empty()) {
-        Vertex* currentVertex = vertexStack.top();
-        if (currentVertex->getAdj().empty()) {
-            circuit.push_back(currentVertex);
-            vertexStack.pop();
-        } else {
-            Edge* edge = currentVertex->getAdj().front();
-            edge->setSelected(true);
-            vertexStack.push(edge->getDest());
-            currentVertex->getIncoming().push_back(edge);
-        }
-    }
-
-    return circuit;
+    return subgraph;
 }
 
-std::vector<Vertex*> Graph::convertToHamiltonianPath() { //mal implementada
-    
-    std::vector<Vertex*> hamiltonianPath;
+void Graph::uniteGraphs(Graph &graph){
+    for (auto v : graph.getVertexSet()) {
+        for (auto& edge : v->getMST()) {
+            addBidirectionalEdge(edge->getOrig()->getId(), edge->getDest()->getId(), edge->getWeight());
+        }
+    }
+}
 
+/*std::vector<Vertex*> Graph::findEulerianCircuit() {
+    std::vector<Vertex*> cycle;
+
+    Vertex* startVertex = vertexSet[0];
+
+    std::stack<Edge*> edgeStack;
+    edgeStack.push(startVertex->getAdj()[0]);
+
+    while (!edgeStack.empty()) {
+        Edge* currentEdge = edgeStack.top();
+
+        if (currentEdge->isSelected()) {
+
+            edgeStack.pop();
+            continue;
+        }
+        currentEdge->setSelected(true);
+        Vertex* currentVertex = currentEdge->getDest();
+
+        cycle.push_back(currentVertex);
+        edgeStack.pop()
+
+        bool foundUnvisitedEdge = false;
+
+        for (Edge* edge : currentVertex->getAdj()) {
+            if (!edge->isSelected()) {
+                edgeStack.push(edge);
+                foundUnvisitedEdge = true;
+                break;
+            }
+        }
+        if (!foundUnvisitedEdge && currentVertex != startVertex) {
+
+            cycle.pop_back();
+            edgeStack.push(currentEdge);
+        }
+
+    }
+
+    return cycle;
+}*/
+
+std::vector<Vertex*> Graph::convertToHamiltonianPath() {
+    std::vector<Vertex*> hamiltonianPath;
+    std::unordered_set<Vertex*> visitedVertices;
 
     Vertex* startVertex = findVertex(0);
     hamiltonianPath.push_back(startVertex);
-
+    visitedVertices.insert(startVertex);
 
     while (hamiltonianPath.size() < vertexSet.size()) {
         Vertex* currentVertex = hamiltonianPath.back();
         for (auto& edge : currentVertex->getAdj()) {
             Vertex* nextVertex = edge->getDest();
-            if (std::find(hamiltonianPath.begin(), hamiltonianPath.end(), nextVertex) == hamiltonianPath.end()) {
+            if (visitedVertices.count(nextVertex) == 0) {  // Verificar se o próximo vértice não está no conjunto de visitados
                 hamiltonianPath.push_back(nextVertex);
+                visitedVertices.insert(nextVertex);  // Adicionar o próximo vértice aos visitados
                 break;
             }
         }
@@ -436,6 +459,55 @@ std::vector<Vertex*> Graph::convertToHamiltonianPath() { //mal implementada
     return hamiltonianPath;
 }
 
+void Graph::DFS(Vertex* v, vector<Edge*>& visitedEdges, vector<vector<Vertex*>>& cycles) {
+    for (auto& edge : v->getAdj()) {
+        if (!edge->isSelected()) {
+            edge->setSelected(true);
+            visitedEdges.push_back(edge);
+
+            Vertex* nextVertex = edge->getDest();
+            DFS(nextVertex, visitedEdges, cycles);
+        }
+    }
+
+    if (!visitedEdges.empty()) {
+        Edge* lastEdge = visitedEdges.back();
+        visitedEdges.pop_back();
+
+        Vertex* lastVertex = lastEdge->getOrig();
+        if (lastVertex->getAdj().size() > 0) {
+            DFS(lastVertex, visitedEdges, cycles);
+        }
+    } else if (!v->getAdj().empty()) {
+        // Form a cycle
+        vector<Vertex*> cycle;
+        for (auto& edge : visitedEdges) {
+            cycle.push_back(edge->getOrig());
+        }
+        cycle.push_back(visitedEdges.back()->getDest()); // Adiciona o destino da última aresta
+        cycles.push_back(cycle);
+    }
+}
+
+vector<vector<Vertex*>> Graph::findEulerianCycles() {
+    vector<vector<Vertex*>> cycles;
+    vector<Edge*> visitedEdges;
+
+    // Find vertices with odd degree
+    vector<Vertex*> oddVertices;
+    for (auto v : vertexSet) {
+        if (v->getAdj().size() % 2 == 1) {
+            oddVertices.push_back(v);
+        }
+    }
+
+    // Perform DFS from odd degree vertices
+    for (auto* v : oddVertices) {
+        DFS(v, visitedEdges, cycles);
+    }
+
+    return cycles;
+}
 
 
 /*
@@ -659,4 +731,3 @@ vector<vector<Vertex*>> Graph::clusteringFunction(const vector<Vertex*>& vertice
 
     return clusters;
 }*/
-
