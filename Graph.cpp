@@ -214,19 +214,28 @@ std::vector<Vertex*> Graph::preOrderTraversal(Vertex* vertex) {
     return res;
 }
 
-vector<Vertex*> Graph::OddVertex() {
+vector<Vertex*> Graph::OddVertex(Graph mst) {
     vector<Vertex*> result;
-    for (auto v: vertexSet){
-        if (v->getAdj().size() % 2 == 1){
-            cout << v->getId() << endl;
-            result.push_back(v);
+    for (auto v: mst.getVertexSet()){
+        Vertex* v1 = findVertex(v->getId());
+        if (v->getAdj().size() % 2 != 0){
+            result.push_back(v1);
         }
     }
     return result;
 }
 
-void Graph::MinimumPerfectMatching() {
-    vector<Vertex*> oddVertices = OddVertex(); // Obtém os vértices ímpares da MST
+bool Graph::IsOdd(Vertex *v, vector<Vertex*>oddVertices) {
+    for (auto vert : oddVertices) {
+        if (vert == v) return true;
+    }
+    return false;
+}
+
+
+vector<Edge*> Graph::MinimumPerfectMatching(vector<Vertex*>oddVert) {
+    vector<Vertex*>oddVertices = oddVert;
+    vector<Edge*>finalEdges;
 
     while (!oddVertices.empty()) {
         Vertex* u = oddVertices.back(); // Escolha um vértice ímpar arbitrário
@@ -234,12 +243,13 @@ void Graph::MinimumPerfectMatching() {
 
         double minWeight = INF;
         Vertex* minVertex = nullptr;
-
         // Encontre a aresta de menor peso conectada ao vértice u
+
         for (auto& edge : u->getAdj()) {
             Vertex* v = edge->getDest();
 
-            if (v->isVisited()) {
+
+            if (v->isVisited() || !IsOdd(v, oddVertices)) {
                 continue; // Ignore arestas já visitadas
             }
 
@@ -248,21 +258,31 @@ void Graph::MinimumPerfectMatching() {
                 minVertex = v;
             }
         }
-
         if (minVertex != nullptr) {
             // Adicione a aresta de menor peso ao emparelhamento perfeito mínimo
+
+            auto newEdge = new Edge(u, minVertex, minWeight);
+
+            finalEdges.push_back(newEdge);
             u->addMSTEdge(minVertex, minWeight);
+
             cout << u->getMST().back()->getOrig()->getId() << " - ";
             cout << u->getMST().back()->getWeight() << " - ";
             cout << u->getMST().back()->getDest()->getId() << endl;
+
             // Marque os vértices como visitados
             u->setVisited(true);
             minVertex->setVisited(true);
 
-            // Remova os vértices do vetor de vértices ímpares
-            oddVertices.erase(std::remove(oddVertices.begin(), oddVertices.end(), u), oddVertices.end());
             oddVertices.erase(std::remove(oddVertices.begin(), oddVertices.end(), minVertex), oddVertices.end());
         }
+    }
+    return finalEdges;
+}
+
+void Graph::uniteGraphs(vector<Edge*>finalEdges){
+    for (auto e : finalEdges) {
+        addBidirectionalEdge(e->getOrig()->getId(), e->getDest()->getId(), e->getWeight());
     }
 }
 
@@ -386,56 +406,19 @@ Graph Graph::createSubgraph(const vector<Vertex*> &oddV) {
     return subgraph;
 }
 
-void Graph::uniteGraphs(Graph &graph){
-    for (auto v : graph.getVertexSet()) {
-        for (auto& edge : v->getMST()) {
-            addBidirectionalEdge(edge->getOrig()->getId(), edge->getDest()->getId(), edge->getWeight());
+
+/*
+std::vector<Vertex*> Graph::findEulerianCircuit() {
+    vector <Vertex*> oddDegreeVertices;
+    for (auto v : vertexSet) {
+        if (v->getAdj().size() % 2 != 0) {
+            oddDegreeVertices.push_back(v);
         }
     }
+
+    if (oddDegreeVertices.size() == 2) {}
 }
-
-/*std::vector<Vertex*> Graph::findEulerianCircuit() {
-    std::vector<Vertex*> cycle;
-
-    Vertex* startVertex = vertexSet[0];
-
-    std::stack<Edge*> edgeStack;
-    edgeStack.push(startVertex->getAdj()[0]);
-
-    while (!edgeStack.empty()) {
-        Edge* currentEdge = edgeStack.top();
-
-        if (currentEdge->isSelected()) {
-
-            edgeStack.pop();
-            continue;
-        }
-        currentEdge->setSelected(true);
-        Vertex* currentVertex = currentEdge->getDest();
-
-        cycle.push_back(currentVertex);
-        edgeStack.pop()
-
-        bool foundUnvisitedEdge = false;
-
-        for (Edge* edge : currentVertex->getAdj()) {
-            if (!edge->isSelected()) {
-                edgeStack.push(edge);
-                foundUnvisitedEdge = true;
-                break;
-            }
-        }
-        if (!foundUnvisitedEdge && currentVertex != startVertex) {
-
-            cycle.pop_back();
-            edgeStack.push(currentEdge);
-        }
-
-    }
-
-    return cycle;
-}*/
-
+*/
 std::vector<Vertex*> Graph::convertToHamiltonianPath() {
     std::vector<Vertex*> hamiltonianPath;
     std::unordered_set<Vertex*> visitedVertices;
@@ -509,225 +492,47 @@ vector<vector<Vertex*>> Graph::findEulerianCycles() {
     return cycles;
 }
 
+std::vector<Vertex*> Graph::findEulerianCircuit() {
+    std::vector<Vertex*> cycle;
 
-/*
-Vertex* findClosestVertex(Vertex* v, const vector<Vertex*>& vertices) {
-    Vertex* closest = nullptr;
-    double minDistance = INF;
+    Vertex* startVertex = findVertex(0);
 
-    for (auto vertex : vertices) {
-        if (v != vertex) {
-            for (auto e: vertex->getAdj()) {
-                double distance = calculateDistance(v, e->getDest());
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closest = vertex;
-                }
-            }
+    std::stack<Edge*> edgeStack;
+    edgeStack.push(startVertex->getAdj()[0]);
+
+    while (!edgeStack.empty()) {
+        Edge* currentEdge = edgeStack.top();
+
+        if (currentEdge->isSelected()) {
+
+            edgeStack.pop();
+            continue;
         }
-    }
-    return closest;
-}
+        currentEdge->setSelected(true);
+        Vertex* currentVertex = currentEdge->getDest();
 
-vector<Vertex*> Graph::getEulerianTour(vector<Vertex*> mst) {
-    vector<Vertex*> tour;
+        cycle.push_back(currentVertex);
+        edgeStack.pop();
 
-    stack<Vertex*> verticesStack;
-    vector<Vertex*> currentTour;
-
-    verticesStack.push(mst[0]);
-
-    while (!verticesStack.empty()) {
-        Vertex* currentVertex = verticesStack.top();
         bool foundUnvisitedEdge = false;
 
         for (Edge* edge : currentVertex->getAdj()) {
-            if (!edge->getVisit()) {
-                edge->setVisit(true);
-                verticesStack.push(edge->getDest());
-                currentTour.push_back(currentVertex);
+            if (!edge->isSelected()) {
+                edgeStack.push(edge);
                 foundUnvisitedEdge = true;
                 break;
             }
         }
+        if (!foundUnvisitedEdge && currentVertex != startVertex) {
 
-        if (!foundUnvisitedEdge) {
-
-            tour.push_back(currentVertex);
-            verticesStack.pop();
+            cycle.pop_back();
+            edgeStack.push(currentEdge);
         }
+
     }
 
-
-    reverse(currentTour.begin(), currentTour.end());
-    tour.insert(tour.end(), currentTour.begin(), currentTour.end());
-
-    return tour;
+    return cycle;
 }
 
-std::vector<Vertex*> findMinimumCostPerfectMatching(const std::vector<Vertex*>& oddVertices) {
-    int numOddVertices = oddVertices.size();
-    std::vector<Vertex*> matching(numOddVertices, nullptr);
-    std::vector<bool> visited(numOddVertices, false);
-    std::vector<double> slack(numOddVertices, std::numeric_limits<double>::max());
 
-    for (int i = 0; i < numOddVertices; i++) {
-        double minWeight = std::numeric_limits<double>::max();
-        int minIndex = -1;
 
-        for (int j = 0; j < numOddVertices; j++) {
-            if (!visited[j]) {
-                double weight = 0;
-                //double weight = oddVertices[i]->getWeightTo(oddVertices[j]);
-                for(auto *e : oddVertices[i]->getAdj()){
-                    if(e->getDest() == oddVertices[j]){
-                        weight = e->getWeight();
-                    }
-                }
-                if (weight < slack[j]) {
-                    slack[j] = weight;
-                }
-
-                if (slack[j] < minWeight) {
-                    minWeight = slack[j];
-                    minIndex = j;
-                }
-            }
-        }
-
-        for (int j = 0; j < numOddVertices; j++) {
-
-            double weight3 = 0;
-            //double weight = oddVertices[j]->getWeightTo(oddVertices[minIndex]);
-            for(auto *e : oddVertices[j]->getAdj()){
-                if(e->getDest() == oddVertices[minIndex]){
-                    weight3 = e->getWeight();
-                }
-            }
-
-            if (visited[j]) {
-                oddVertices[j]->setDist(minWeight);
-            } else if (weight3 == minWeight) {
-                visited[j] = true;
-            }
-        }
-    }
-
-    for (int i = 0; i < numOddVertices; i++) {
-        if (matching[i] == nullptr) {
-            double weight2 = 0;
-            for (int j = 0; j < numOddVertices; j++) {
-
-                for(auto *e : oddVertices[i]->getAdj()){
-                    if(e->getDest() == oddVertices[j]){
-                        weight2 = e->getWeight();
-                    }
-                }
-
-                if (matching[j] == nullptr && weight2 == 0) {
-                    matching[i] = oddVertices[j];
-                    matching[j] = oddVertices[i];
-                    break;
-                }
-            }
-        }
-    }
-
-    return matching;
-}
-/*
-//Função base
-
-void Graph::tspCombined() {
-    //dividir o grapho em subpaths usando divide and conquer
-    vector<vector<Vertex*>> subPaths = divideGraph(vertexSet);
-
-    vector<Vertex*> finalPath;
-
-    for (const vector<Vertex*>& subPath : subPaths) {
-        //dividir em clusters
-        vector<vector<Vertex*>> clusters = clusteringFunction(subPath);
-
-        vector<Vertex*> clusterPath;
-        //fazer 2step para cada cluster
-        for (const vector<Vertex*>& cluster : clusters) {
-            vector<Vertex *> clusterPath = tspTwoStepApproximation(cluster);
-            finalPath.insert(finalPath.end(), clusterPath.begin(), clusterPath.end());
-        }
-    }
-    for (int i = 0; i<finalPath.size()-1;i++) {
-        cout << finalPath[i]->getId() << " ";
-    }
-}
-
-vector<vector<Vertex*>> Graph::divideGraph(const vector<Vertex*> vertexes) {
-    vector<vector<Vertex*>> subPaths;
-    const size_t subPathSize = vertexes.size() / 2;
-
-    for (int i = 0; i< vertexes.size(); i+=subPathSize) {
-        vector<Vertex*> subPath;
-
-        for (int j = 1; j < i + subPathSize; j++) {
-            subPath.push_back(vertexes[j]);
-        }
-
-        subPaths.push_back(subPath);
-    }
-
-    return subPaths;
-}
-
-vector<Vertex*> Graph::tspTwoStepApproximation(const vector<Vertex*>& cluster) {
-    // Step 1: Find the vertex with the minimum degree in the cluster
-    Vertex* minDegreeVertex = nullptr;
-    int minDegree = INT_MAX;
-
-    for (Vertex* vertex : cluster) {
-        int degree = vertex->getAdj().size();
-        if (degree < minDegree) {
-            minDegree = degree;
-            minDegreeVertex = vertex;
-        }
-    }
-
-    // Step 2: Perform a Preorder Traversal starting from the vertex with the minimum degree
-    vector<Vertex*> clusterPath;
-    clusterPath = preOrderTraversal2(minDegreeVertex, cluster);
-
-    return clusterPath;
-}
-
-std::vector<Vertex*> Graph::preOrderTraversal2(Vertex* vertex, vector<Vertex*> cluster) {
-    for(auto *v : cluster){
-        v->setVisited(false);
-        v->setPath(nullptr);
-    }
-    std::vector<Vertex *> res;
-    dfs(vertex,res);
-    return res;
-}
-
-vector<vector<Vertex*>> Graph::clusteringFunction(const vector<Vertex*>& vertices) {
-    vector<vector<Vertex*>> clusters;
-
-    // Definir o número de clusters com base no tamanho do grafo
-    int numClusters = ceil(sqrt(vertices.size()));  // Número de clusters proporcional à raiz quadrada do tamanho do grafo
-
-    // Implementar a lógica para agrupar os vértices em clusters
-    // com base nas características do grafo e nos novos dados
-
-    // Exemplo: Dividir os vértices em clusters aproximadamente iguais
-    int verticesPerCluster = vertices.size() / numClusters;
-
-    int currentIndex = 0;
-    for (int i = 0; i < numClusters; i++) {
-        vector<Vertex*> cluster;
-        for (int j = 0; j < verticesPerCluster; j++) {
-            cluster.push_back(vertices[currentIndex]);
-            currentIndex++;
-        }
-        clusters.push_back(cluster);
-    }
-
-    return clusters;
-}*/

@@ -78,7 +78,7 @@ public:
 
     void tspCombined();
 
-    std::vector<Vertex *> OddVertex();
+    std::vector<Vertex *> OddVertex(Graph mst);
 
     std::vector<int> findMinimumCostPerfectMatching(const std::vector<Vertex *> &oddVertices);
 
@@ -91,9 +91,9 @@ public:
 
     std::vector<Vertex*> convertToHamiltonianPath();
 
-    void MinimumPerfectMatching();
+    std::vector<Edge*> MinimumPerfectMatching(std::vector<Vertex*>oddVert);
 
-    void uniteGraphs(Graph &graph);
+    void uniteGraphs(std::vector<Edge*>finalEdges);
 
     Graph createMST();
 
@@ -135,6 +135,8 @@ protected:
     findMissingPoints(const Graph &oddDegreeSubgraph, Graph &minimumSpanningTree);
 
     void DFS(Vertex* v, std::vector<Edge*>& visitedEdges, std::vector<std::vector<Vertex*>>& cycles);
+
+    bool IsOdd(Vertex *v, std::vector<Vertex*>oddVertices);
 };
 
 void deleteMatrix(int **m, int n);

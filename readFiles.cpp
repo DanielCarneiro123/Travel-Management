@@ -87,7 +87,7 @@ Graph readFiles::edgesGraphs(const std::string &filename){
     unordered_set<string> set_nodes;
     set<pair<string,string>> set_network;
 
-    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_25.csv");
+    myFile.open("C:\\Users\\gkoch\\projetos_feup\\DAproj2-main\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_25.csv");
     getline(myFile, currentLine);    // ignore first line
     while (getline(myFile, currentLine)) {
         std::stringstream iss(currentLine);
