@@ -9,9 +9,12 @@
 #include <unordered_set>
 #include <stack>
 #include <list>
+#include <chrono>
 
 
 using namespace std;
+using namespace std::chrono;
+
 
 //double minPath;
 
@@ -23,9 +26,6 @@ std::vector<Vertex *> Graph::getVertexSet() const {
     return vertexSet;
 }
 
-/*
- * Auxiliary function to find a vertex with a given content.
- */
 Vertex* Graph::findVertex(const int& id) const {
     for (auto vertex : vertexSet) {
         if (vertex->getId() == id) {
@@ -35,13 +35,6 @@ Vertex* Graph::findVertex(const int& id) const {
     return nullptr;
 }
 
-
-
-
-
-/*
- * Finds the index of the vertex with a given content.
- */
 int Graph::findVertexIdx(const int &id) const {
     for (unsigned i = 0; i < vertexSet.size(); i++)
         if (vertexSet[i]->getId() == id)
@@ -52,12 +45,6 @@ int Graph::findVertexIdx(const int &id) const {
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
-/*bool Graph::addVertex(const int &id) {
-    if (findVertex(id) != nullptr)
-        return false;
-    vertexSet.push_back(new Vertex(id));
-    return true;
-}*/
 
 bool Graph::addVertexV2(const int &id, double longitude, double latitude) {
     if (findVertex(id) != nullptr)
@@ -129,19 +116,22 @@ Graph::~Graph() {
 }
 
 
-double Graph::haversine(Vertex* v1, Vertex* v2){
-    double lat1 = v1->getLatitude();
-    double lon1 = v1->getLongitude();
-    double lat2 = v2->getLatitude();
-    double lon2 = v1->getLongitude();
+
+
+double Graph::haversine(double lat1, double lon1, double lat2, double lon2) {
     double dLat = (lat2 - lat1) * M_PI / 180.0;
     double dLon = (lon2 - lon1) * M_PI / 180.0;
+
+    // convert to radians
     lat1 = (lat1) * M_PI / 180.0;
     lat2 = (lat2) * M_PI / 180.0;
+
+    // apply formula
     double a = pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
     double rad = 6371;
     double c = 2 * asin(sqrt(a));
-    return rad * c;
+    return rad * c * 1000;
+
 }
 
 bool Graph::hasCon(Vertex* v1, Vertex* v2){
@@ -155,9 +145,6 @@ bool Graph::hasCon(Vertex* v1, Vertex* v2){
     }
     return connection;
 }
-
-
-
 
 double Graph::tspBT(int initialNode, vector<Vertex*> &path){
     double minDist = numeric_limits<double>::max();
@@ -178,23 +165,23 @@ double Graph::tspBT(int initialNode, vector<Vertex*> &path){
 
 void Graph::tsp(Vertex* currVert, int visitedCount, double currDist , double &minDist, vector<Vertex*> &path, vector<Vertex*> &minPath) {
     if (visitedCount == vertexSet.size() - 1){
+        bool hasCon = false;
         for (auto e : currVert->getAdj()) {
             if (e->getDest()->getId() == 0) {
                 currDist += e->getWeight();
+                hasCon = true;
                 break;
             }
         }
-        if (currDist < minDist) {
+        if (currDist < minDist && hasCon) {
             minDist = currDist;
             minPath = path;
             minPath.push_back(currVert);
-            //cout << vert->getPath() << endl;
         }
         return;
     }
     for (auto edge: currVert->getAdj()) {
         Vertex* dest = edge->getDest();
-        double edgeDist = edge->getWeight();
         if (!dest->isVisited()) {
             dest->setVisited(true);
             path.push_back(currVert);
@@ -233,7 +220,6 @@ bool Graph::IsOdd(Vertex *v, vector<Vertex*>oddVertices) {
     return false;
 }
 
-
 vector<Edge*> Graph::MinimumPerfectMatching(vector<Vertex*>oddVert) {
     vector<Vertex*>oddVertices = oddVert;
     vector<Edge*>finalEdges;
@@ -267,10 +253,6 @@ vector<Edge*> Graph::MinimumPerfectMatching(vector<Vertex*>oddVert) {
             finalEdges.push_back(newEdge);
             u->addMSTEdge(minVertex, minWeight);
 
-            cout << u->getMST().back()->getOrig()->getId() << " - ";
-            cout << u->getMST().back()->getWeight() << " - ";
-            cout << u->getMST().back()->getDest()->getId() << endl;
-
             // Marque os vértices como visitados
             u->setVisited(true);
             minVertex->setVisited(true);
@@ -297,7 +279,6 @@ void Graph::Prim() {
         v->setPath(nullptr);
         v->setVisited(false);
     }
-
     // Start with node 0
     Vertex* s ;
     for (auto v: vertexSet){
@@ -353,27 +334,31 @@ void Graph::dfs(Vertex *currentVertex, std::vector<Vertex*> &path) {
 
 double Graph::calculatePathDistance(const std::vector<Vertex*>& path) { //testar soma dos paths
     double distance = 0.0;
+
     for (int i = 0; i < path.size() ; i++) {
-        Vertex* currentVertex = path[i];
+
+        Vertex* currentVertex = path[i];/*
         if (currentVertex->getPath() != nullptr){
             distance += currentVertex->getPath()->getWeight();
         }
-        else{
+        else{*/
             Vertex* nextVertex = path[(i + 1) % path.size()];
             distance += getDistance(currentVertex, nextVertex);
-        }
+        std::cout << path[i]->getId() << " " << path[(i + 1) % path.size()]->getId() << " : " << getDistance(currentVertex, nextVertex);
+        std::cout << '\n';
+        //}
     }
+    std::cout << '\n';
     return distance;
 }
 
 double Graph::getDistance(Vertex* v1, Vertex* v2){
-
     for (auto edge: v1->getAdj()){
         if (edge->getDest() == v2){
             return edge->getWeight();
         }
     }
-    return haversine(v1,v2);
+    return haversine(v1->getLatitude(),v1->getLongitude(), v2->getLatitude(), v2->getLongitude());
 }
 
 Graph Graph::createMST() {
@@ -497,6 +482,71 @@ double Graph::hamiltonPath(vector<Vertex*> eurlerian){
         }
 
     }
+    cout << endl << "e o seu custo é: ";
     return result;
+}
+
+void Graph::aux4_1(Graph &gextra){
+    auto start = high_resolution_clock::now();
+
+    vector<Vertex*> path;
+
+    double custo = gextra.tspBT(0, path);
+    cout << "e o seu custo é: " << custo << endl;
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    cout << "Tempo de execução: " << duration.count()  / 1000000.0 << " segundos" << endl << endl;
+};
+
+void Graph::aux4_2(Graph &gextra) {
+    auto start = high_resolution_clock::now();
+
+    gextra.Prim();
+    auto arr = gextra.preOrderTraversal(gextra.findVertex(0));
+    for (auto v: arr){
+        cout << v->getId() << " ";
+    }
+    cout << endl;
+    cout << "E o seu custo é: " << gextra.calculatePathDistance(arr) << endl;
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    cout << "Tempo de execução: " << duration.count()  / 1000000.0 << " segundos" << endl << endl;
+}
+
+void Graph::final4_3(Graph &gextra){
+    auto start = high_resolution_clock::now();
+
+    gextra.Prim();
+
+    auto mst = gextra.createMST();
+
+    //gextra.preOrderTraversal(gextra.findVertex(0));
+
+    vector<Vertex*> oddV = gextra.OddVertex(mst);
+
+    for (auto v : oddV) {
+        v->setVisited(false);
+    }
+
+    vector<Edge*> oddEdges = mst.MinimumPerfectMatching(oddV);
+
+    mst.uniteGraphs(oddEdges);
+
+    vector<Vertex*> oddVert = gextra.OddVertex(mst);
+
+    //juntar mst ao getMST dos nós do subgraph
+
+    auto cycles = mst.findEulerianCycle(mst.findVertex(0));
+
+    cout << mst.hamiltonPath(cycles) << endl ;
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    cout << "Tempo de execução: " << duration.count() / 1000000.0 << " segundos" << endl << endl;
 }
 

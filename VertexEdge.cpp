@@ -127,7 +127,7 @@ double Vertex::getLatitude() const{
 }
 
 double Vertex::getLongitude() const{
-    return this->latitude;
+    return this->longitude;
 }
 
 void Vertex::setLatitude(double latitude) {

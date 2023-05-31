@@ -101,6 +101,13 @@ public:
 
     double hamiltonPath(std::vector<Vertex *> eurlerian);
 
+    void final4_3(Graph &gextra);
+
+    void aux4_2(Graph &gextra);
+    void aux4_1(Graph &gextra);
+
+
+
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
 
@@ -118,7 +125,7 @@ protected:
     std::vector<Vertex *> prim();
 
 
-    double haversine(Vertex *v1, Vertex *v2);
+    double haversine(double lat1, double lon1, double lat2, double lon2);
 
     bool hasCon(Vertex* v1, Vertex* v2);
 
@@ -140,6 +147,8 @@ protected:
 
     bool IsOdd(Vertex *v, std::vector<Vertex*>oddVertices);
 
+
+    double convert_to_radians(double coord);
 
 
 };
