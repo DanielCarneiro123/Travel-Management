@@ -8,6 +8,7 @@
 #include <cmath>
 #include <unordered_set>
 #include <stack>
+#include <list>
 
 
 using namespace std;
@@ -281,8 +282,10 @@ vector<Edge*> Graph::MinimumPerfectMatching(vector<Vertex*>oddVert) {
 }
 
 void Graph::uniteGraphs(vector<Edge*>finalEdges){
-    for (auto e : finalEdges) {
-        addBidirectionalEdge(e->getOrig()->getId(), e->getDest()->getId(), e->getWeight());
+    for (auto &e : finalEdges) {
+        Vertex* orig = e->getOrig();
+        Vertex* dest = e->getDest();
+        addBidirectionalEdge2(orig, dest, e->getWeight());
     }
 }
 
@@ -314,6 +317,7 @@ void Graph::Prim() {
         if (v->getPath() != nullptr){
             v->getPath()->getOrig()->addMSTEdge(v, v->getDist());
         }
+
         for (auto& edge : v->getAdj()) { // Loop variable changed to 'edge'
             Vertex* w = edge->getDest(); // Access the destination vertex using 'edge'
             if (!w->isVisited()) {
@@ -376,12 +380,12 @@ Graph Graph::createMST() {
     Graph subgraph;
 
     // Adicione os vértices da MST original ao subgrafo
-    for (auto v : vertexSet) {
+    for (auto &v : vertexSet) {
         subgraph.addVertexV2(v->getId(), v->getLongitude(), v->getLatitude());
     }
 
     // Adicione as arestas da MST original ao subgrafo
-    for (auto v : vertexSet) {
+    for (auto &v : vertexSet) {
         for (auto& edge : v->getMST()) {
             subgraph.addBidirectionalEdge(edge->getOrig()->getId(), edge->getDest()->getId(), edge->getWeight());
         }
@@ -390,106 +394,41 @@ Graph Graph::createMST() {
     return subgraph;
 }
 
-Graph Graph::createSubgraph(const vector<Vertex*> &oddV) {
-    Graph subgraph;
 
-    for (auto v : oddV) {
-        subgraph.addVertexV2(v->getId(), v->getLongitude(), v->getLatitude());
-    }
+vector<Vertex*> Graph::findEulerianCycle(Vertex* startVertex) {
+    vector<Vertex *> res;
 
-    for (auto v : oddV) {
-        for (auto& edge : v->getAdj()) {
-            subgraph.addEdge(edge->getOrig()->getId(), edge->getDest()->getId(), edge->getWeight());
+    for (Vertex *v: vertexSet) {
+        for(Edge* e : v->getAdj()) {
+            e->setSelected(false);
+            e->getReverse()->setSelected(false);
         }
     }
 
-    return subgraph;
-}
+    stack<Vertex *> stack;
+    stack.push(startVertex);
 
+    while (!stack.empty()) {
+        Vertex *v = stack.top();
 
-/*
-std::vector<Vertex*> Graph::findEulerianCircuit() {
-    vector <Vertex*> oddDegreeVertices;
-    for (auto v : vertexSet) {
-        if (v->getAdj().size() % 2 != 0) {
-            oddDegreeVertices.push_back(v);
-        }
-    }
-
-    if (oddDegreeVertices.size() == 2) {}
-}
-*/
-std::vector<Vertex*> Graph::convertToHamiltonianPath() {
-    std::vector<Vertex*> hamiltonianPath;
-    std::unordered_set<Vertex*> visitedVertices;
-
-    Vertex* startVertex = findVertex(0);
-    hamiltonianPath.push_back(startVertex);
-    visitedVertices.insert(startVertex);
-
-    while (hamiltonianPath.size() < vertexSet.size()) {
-        Vertex* currentVertex = hamiltonianPath.back();
-        for (auto& edge : currentVertex->getAdj()) {
-            Vertex* nextVertex = edge->getDest();
-            if (visitedVertices.count(nextVertex) == 0) {  // Verificar se o próximo vértice não está no conjunto de visitados
-                hamiltonianPath.push_back(nextVertex);
-                visitedVertices.insert(nextVertex);  // Adicionar o próximo vértice aos visitados
-                break;
+        vector<Edge *> unvisitedEdges;
+        for (Edge *e: v->getAdj()) {
+            if (!e->isSelected()) {
+                unvisitedEdges.push_back(e);
             }
         }
-    }
-
-    return hamiltonianPath;
-}
-
-void Graph::DFS(Vertex* v, vector<Edge*>& visitedEdges, vector<vector<Vertex*>>& cycles) {
-    for (auto& edge : v->getAdj()) {
-        if (!edge->isSelected()) {
-            edge->setSelected(true);
-            visitedEdges.push_back(edge);
-
-            Vertex* nextVertex = edge->getDest();
-            DFS(nextVertex, visitedEdges, cycles);
+        if (!unvisitedEdges.empty()) {
+            Edge *e = unvisitedEdges.front();
+            e->setSelected(true);
+            e->getReverse()->setSelected(true);
+            stack.push(e->getDest());
+        }else{
+            res.push_back(v);
+            stack.pop();
         }
     }
 
-    if (!visitedEdges.empty()) {
-        Edge* lastEdge = visitedEdges.back();
-        visitedEdges.pop_back();
-
-        Vertex* lastVertex = lastEdge->getOrig();
-        if (lastVertex->getAdj().size() > 0) {
-            DFS(lastVertex, visitedEdges, cycles);
-        }
-    } else if (!v->getAdj().empty()) {
-        // Form a cycle
-        vector<Vertex*> cycle;
-        for (auto& edge : visitedEdges) {
-            cycle.push_back(edge->getOrig());
-        }
-        cycle.push_back(visitedEdges.back()->getDest()); // Adiciona o destino da última aresta
-        cycles.push_back(cycle);
-    }
-}
-
-vector<vector<Vertex*>> Graph::findEulerianCycles() {
-    vector<vector<Vertex*>> cycles;
-    vector<Edge*> visitedEdges;
-
-    // Find vertices with odd degree
-    vector<Vertex*> oddVertices;
-    for (auto v : vertexSet) {
-        if (v->getAdj().size() % 2 == 1) {
-            oddVertices.push_back(v);
-        }
-    }
-
-    // Perform DFS from odd degree vertices
-    for (auto* v : oddVertices) {
-        DFS(v, visitedEdges, cycles);
-    }
-
-    return cycles;
+    return res;
 }
 
 std::vector<Vertex*> Graph::findEulerianCircuit() {
@@ -534,5 +473,30 @@ std::vector<Vertex*> Graph::findEulerianCircuit() {
     return cycle;
 }
 
+double Graph::hamiltonPath(vector<Vertex*> eurlerian){
+    double result = 0.0;
+    for (auto e: findVertex(0)->getAdj()){
+        if (e->getDest() == eurlerian[0]){
+            result += e->getWeight();
+        }
+    }
+    cout << "0" << " ";
+    cout << eurlerian[0]->getId() << " ";
+    for (int i = 0; i < eurlerian.size() - 1; i++){
+        if (eurlerian[i+1]->isVisited()){
+            continue;
+        }
+        else {
+            for (auto e: eurlerian[i]->getAdj()){
+                if (e->getDest() == eurlerian[i+1]){
+                    result += e->getWeight();
+                }
+            }
+            eurlerian[i+1]->setVisited(true);
+            cout << eurlerian[i+1]->getId() << " ";
+        }
 
+    }
+    return result;
+}
 

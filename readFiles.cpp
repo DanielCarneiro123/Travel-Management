@@ -11,8 +11,8 @@
 #include "string"
 
 using namespace std;
-/*
-Graph readFiles::edgesGraphs(const std::string &filename){
+
+Graph readFiles::edgesGraphs(const string &filename){
     string InitialNode, DestinyNode, distance;
     Graph _graph;
     ifstream myFile;
@@ -20,75 +20,17 @@ Graph readFiles::edgesGraphs(const std::string &filename){
     unordered_set<string> set_nodes;
     set<pair<string,string>> set_network;
 
-    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges.csv");
-    getline(myFile, currentLine);    // ignore first line
-    while (getline(myFile, currentLine)) {
-        std::stringstream iss(currentLine);
-        getline(iss, InitialNode, ',');
-        getline(iss, DestinyNode, ',');
-        getline(iss, distance, ',');
 
-        int initialNodeId = std::stoi(InitialNode);
-        int destinyNodeId = std::stoi(DestinyNode);
-        double distanceDoble = std::stod(distance);
+    myFile.open(filename);
 
-        if (set_nodes.insert(InitialNode).second) {
-            _graph.addVertex(initialNodeId);
-        }
-        if (set_nodes.insert(DestinyNode).second) {
-            _graph.addVertex(destinyNodeId);
-        }
-        if (set_network.insert(std::make_pair(InitialNode, DestinyNode)).second) {
-            _graph.addBidirectionalEdge(initialNodeId, destinyNodeId, distanceDoble);
-        }
+    // Verificar se o nome do arquivo contém "Toy-Graphs" para eliminar a primeira linha
+    bool ignoreFirstLine = (filename.find("Toy-Graphs") != string::npos);
+
+    if (ignoreFirstLine) {
+        getline(myFile, currentLine);    // ignore first line
     }
-    myFile.close();
-    return _graph;
-}
 
-Graph readFiles::extraFullyGraphs(const std::string &filename){
-    string InitialNode, DestinyNode, distance;
-    Graph _graph;
-    ifstream myFile;
-    string currentLine;
-    unordered_set<string> set_nodes;
-    set<pair<string,string>> set_network;
 
-    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_900.csv");
-    while (getline(myFile, currentLine)) {
-        std::stringstream iss(currentLine);
-        getline(iss, InitialNode, ',');
-        getline(iss, DestinyNode, ',');
-        getline(iss, distance, ',');
-
-        int initialNodeId = std::stoi(InitialNode);
-        int destinyNodeId = std::stoi(DestinyNode);
-        double distanceDoble = std::stod(distance);
-
-        if (set_nodes.insert(InitialNode).second) {
-            _graph.addVertex(initialNodeId);
-        }
-        if (set_nodes.insert(DestinyNode).second) {
-            _graph.addVertex(destinyNodeId);
-        }
-        if (set_network.insert(std::make_pair(InitialNode, DestinyNode)).second) {
-            _graph.addBidirectionalEdge(initialNodeId, destinyNodeId, distanceDoble);
-        }
-    }
-    myFile.close();
-    return _graph;
-}
-*/
-Graph readFiles::edgesGraphs(const std::string &filename){
-    string InitialNode, DestinyNode, distance;
-    Graph _graph;
-    ifstream myFile;
-    string currentLine;
-    unordered_set<string> set_nodes;
-    set<pair<string,string>> set_network;
-
-    myFile.open("C:\\Users\\gkoch\\projetos_feup\\DAproj2-main\\ProjectData\\Extra_Fully_Connected_Graphs\\edges_25.csv");
-    getline(myFile, currentLine);    // ignore first line
     while (getline(myFile, currentLine)) {
         std::stringstream iss(currentLine);
         getline(iss, InitialNode, ',');
@@ -106,21 +48,23 @@ Graph readFiles::edgesGraphs(const std::string &filename){
             _graph.addVertexV2(destinyNodeId);
         }
         if (set_network.insert(std::make_pair(InitialNode, DestinyNode)).second) {
-            _graph.addBidirectionalEdge(initialNodeId, destinyNodeId, distanceDoble);
+            Vertex* v1 = _graph.findVertex(initialNodeId);
+            Vertex* v2 = _graph.findVertex(destinyNodeId);
+            _graph.addBidirectionalEdge2(v1, v2, distanceDoble);
         }
     }
     myFile.close();
     return _graph;
 }
-/*
-Graph readFiles::vertexGraphs(const std::string &filename) {
+
+Graph readFiles::realWorldGraphs(const std::string &filename, const std::string &filename2) {
     std::string Node, longitude, latitude, InitialNode, DestinyNode, distance;
     Graph _graph;
     std::ifstream myFile;
     std::string currentLine;
 
 
-    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Real-world Graphs\\graph2\\nodes.csv");
+    myFile.open(filename);
     getline(myFile, currentLine); // ignore first line
     while (getline(myFile, currentLine)) {
         std::stringstream iss(currentLine);
@@ -138,7 +82,7 @@ Graph readFiles::vertexGraphs(const std::string &filename) {
     myFile.close();
 
     vector<Vertex*>vertexSet = _graph.getVertexSet();
-    myFile.open("C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\DAproj2\\ProjectData\\Real-world Graphs\\graph2\\edges.csv");
+    myFile.open(filename2);
     getline(myFile, currentLine);
     while (getline(myFile, currentLine)) {
         std::stringstream iss(currentLine);
@@ -160,4 +104,4 @@ Graph readFiles::vertexGraphs(const std::string &filename) {
 
 
     return _graph;
-}*/
+}
