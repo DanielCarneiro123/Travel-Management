@@ -97,7 +97,9 @@ public:
 
     Graph createMST();
 
-    std::vector<std::vector<Vertex*>> findEulerianCycles();
+    std::vector<Vertex *> findEulerianCycle(Vertex *startVertex);
+
+    double hamiltonPath(std::vector<Vertex *> eurlerian);
 
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
@@ -137,6 +139,9 @@ protected:
     void DFS(Vertex* v, std::vector<Edge*>& visitedEdges, std::vector<std::vector<Vertex*>>& cycles);
 
     bool IsOdd(Vertex *v, std::vector<Vertex*>oddVertices);
+
+
+
 };
 
 void deleteMatrix(int **m, int n);
