@@ -1,3 +1,3 @@
-C:/Users/danie/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/CMakeFiles/Proj2_DA.dir
-C:/Users/danie/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/danie/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/CMakeFiles/Proj2_DA.dir
+/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

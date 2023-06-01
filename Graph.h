@@ -153,7 +153,7 @@ protected:
     double convert_to_radians(double coord);
 
 
-
+    double removeRepeatedVertices(std::vector<Vertex *> eulerian, Graph &gextra);
 };
 
 void deleteMatrix(int **m, int n);

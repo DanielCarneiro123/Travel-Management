@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2022.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2022.2.3/bin/ninja/win/ninja.exe" -G Ninja -S C:\Users\danie\OneDrive\Documentos\GitHub\DAproj2 -B C:\Users\danie\OneDrive\Documentos\GitHub\DAproj2\cmake-build-debug
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2 -B /Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/danie/OneDrive/Documentos/GitHub/DAproj2/cmake-build-debug
+-- Build files have been written to: /Users/goncalocosta/Desktop/2ano/2semestre/es/DAproj2/cmake-build-debug

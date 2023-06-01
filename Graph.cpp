@@ -346,11 +346,16 @@ double Graph::calculatePathDistance(const std::vector<Vertex*>& path) { //testar
 }
 
 double Graph::getDistance(Vertex* v1, Vertex* v2){
-    for (auto edge: v1->getAdj()){
-        if (edge->getDest() == v2){
-            return edge->getWeight();
+    for(auto v: vertexSet){
+        if( v->getId() == v1->getId()) {
+            for (auto edge: v->getAdj()) {
+                if (edge->getDest()->getId() == v2->getId()) {
+                    return edge->getWeight();
+                }
+            }
         }
     }
+
     return haversine(v1->getLatitude(),v1->getLongitude(), v2->getLatitude(), v2->getLongitude());
 }
 
@@ -531,6 +536,50 @@ void Graph::nearestNeighbour() {
     cout << "Peso total: " << totalWeight << endl;
 }
 
+double Graph::removeRepeatedVertices(vector<Vertex*> eulerian, Graph &gextra) {
+
+    vector<Vertex *> hamiltonianPath;
+    double pathWeight = 0;
+    double distance = 0;
+
+    for (auto vertex: eulerian) {
+        if (!vertex->isVisited()) {
+            vertex->setVisited(true);
+            hamiltonianPath.push_back(vertex);
+        }
+    }
+
+    for (int i = 0; i < hamiltonianPath.size(); i++) {
+        Vertex *nextVertex;
+        Vertex *currVertex = findVertex(hamiltonianPath[i]->getId());
+        if (i == hamiltonianPath.size() - 1) {
+            nextVertex = findVertex(0);
+        } else {
+            nextVertex = findVertex(hamiltonianPath[i + 1]->getId());
+        }
+
+        cout << currVertex->getId() << " --(";
+
+
+        distance += gextra.getDistance(currVertex, nextVertex);
+
+        cout << gextra.getDistance(currVertex, nextVertex) << ")-- ";
+
+        /*
+        for (auto edge: currVertex->getAdj()) {
+
+            if (edge->getDest() == nextVertex) {
+
+                pathWeight += edge->getWeight();
+                cout << edge->getWeight() << ")-- ";
+            }
+        }
+         */
+
+    }
+    cout << endl << " distancia: " << distance << endl;
+}
+
 void Graph::aux4_1(Graph &gextra){
     auto start = high_resolution_clock::now();
 
@@ -543,7 +592,7 @@ void Graph::aux4_1(Graph &gextra){
     auto duration = duration_cast<microseconds>(stop - start);
 
     cout << "Tempo de execução: " << duration.count()  / 1000000.0 << " segundos" << endl << endl;
-};
+}
 
 void Graph::aux4_2(Graph &gextra) {
     auto start = high_resolution_clock::now();
@@ -591,13 +640,14 @@ void Graph::final4_3(Graph &gextra){
 
     auto cycles = mst.findEulerianCycle(mst.findVertex(0));
 
+    cout << mst.removeRepeatedVertices(cycles, gextra) << endl;
+
+    /*
     for (auto v: cycles){
         cout << v->getId() << " ";
     }
     cout << endl;
-
-    cout << mst.hamiltonPath(cycles) << endl;
-
+*/
     //gextra.nearestNeighbour();
 
     auto stop = high_resolution_clock::now();
