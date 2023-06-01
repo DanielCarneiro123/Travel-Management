@@ -101,6 +101,8 @@ public:
 
     double hamiltonPath(std::vector<Vertex *> eurlerian);
 
+    void nearestNeighbour();
+
     void final4_3(Graph &gextra);
 
     void aux4_2(Graph &gextra);
@@ -149,6 +151,7 @@ protected:
 
 
     double convert_to_radians(double coord);
+
 
 
 };

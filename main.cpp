@@ -223,15 +223,15 @@ int main() {
                     while (stringResposta != "e") {
                         Graph gShipping = rf.edgesGraphs("../ProjectData/Toy-Graphs/shipping.csv");
                         cout << "O caminho do Graph Shipping é: ";
-                        gShipping.aux4_2(gShipping);
+                        gShipping.final4_3(gShipping);
 
                         Graph gStadiums = rf.edgesGraphs("../ProjectData/Toy-Graphs/stadiums.csv");
                         cout << "O caminho do Graph Stadiums é: ";
-                        gStadiums.aux4_2(gStadiums);
+                        gStadiums.final4_3(gStadiums);
 
                         Graph gTourism = rf.edgesGraphs("../ProjectData/Toy-Graphs/tourism.csv");
                         cout << "O caminho do Graph Tourism é: ";
-                        gTourism.aux4_2(gTourism);
+                        gTourism.final4_3(gTourism);
 
                         cout << "Voltar para tras - [PRESS e] " << endl;
                         cout << "==================================================================" << endl;

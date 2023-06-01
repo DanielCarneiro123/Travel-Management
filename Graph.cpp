@@ -193,13 +193,9 @@ void Graph::tsp(Vertex* currVert, int visitedCount, double currDist , double &mi
 }
 
 std::vector<Vertex*> Graph::preOrderTraversal(Vertex* vertex) {
-    for(auto *v : vertexSet){
-        v->setVisited(false);
-        v->setPath(nullptr);
-    }
-    std::vector<Vertex *> res;
-    dfs(vertex,res);
-    return res;
+    std::vector<Vertex *> preOrder;
+    dfs(vertex,preOrder);
+    return preOrder;
 }
 
 vector<Vertex*> Graph::OddVertex(Graph mst) {
@@ -263,11 +259,9 @@ vector<Edge*> Graph::MinimumPerfectMatching(vector<Vertex*>oddVert) {
     return finalEdges;
 }
 
-void Graph::uniteGraphs(vector<Edge*>finalEdges){
+void Graph::uniteGraphs(vector<Edge*> finalEdges){
     for (auto &e : finalEdges) {
-        Vertex* orig = e->getOrig();
-        Vertex* dest = e->getDest();
-        addBidirectionalEdge2(orig, dest, e->getWeight());
+        addBidirectionalEdge(e->getOrig()->getId(), e->getDest()->getId(), e->getWeight());
     }
 }
 
@@ -294,18 +288,18 @@ void Graph::Prim() {
     // Process vertices in the priority queue
     while (!q.empty()) {
         auto v = q.extractMin();
-        v->setVisited(true);
         if (v->getPath() != nullptr){
             v->getPath()->getOrig()->addMSTEdge(v, v->getDist());
         }
+        v->setVisited(true);
 
         for (auto& edge : v->getAdj()) { // Loop variable changed to 'edge'
             Vertex* w = edge->getDest(); // Access the destination vertex using 'edge'
             if (!w->isVisited()) {
                 auto oldDist = w->getDist();
                 if (edge->getWeight() < oldDist) {
-                    w->setDist(edge->getWeight());
                     w->setPath(edge);
+                    w->setDist(edge->getWeight());
                     if (oldDist == INF) {
                         q.insert(w);
                     } else {
@@ -344,11 +338,10 @@ double Graph::calculatePathDistance(const std::vector<Vertex*>& path) { //testar
         else{*/
             Vertex* nextVertex = path[(i + 1) % path.size()];
             distance += getDistance(currentVertex, nextVertex);
-        std::cout << path[i]->getId() << " " << path[(i + 1) % path.size()]->getId() << " : " << getDistance(currentVertex, nextVertex);
-        std::cout << '\n';
+
         //}
     }
-    std::cout << '\n';
+
     return distance;
 }
 
@@ -386,18 +379,16 @@ vector<Vertex*> Graph::findEulerianCycle(Vertex* startVertex) {
     for (Vertex *v: vertexSet) {
         for(Edge* e : v->getAdj()) {
             e->setSelected(false);
-            e->getReverse()->setSelected(false);
+            //e->getReverse()->setSelected(false);
         }
     }
+    Vertex* currVertex = startVertex;
+    stack<Vertex *> vertexStack;
+    vertexStack.push(currVertex);
 
-    stack<Vertex *> stack;
-    stack.push(startVertex);
-
-    while (!stack.empty()) {
-        Vertex *v = stack.top();
-
+    while (!vertexStack.empty()) {
         vector<Edge *> unvisitedEdges;
-        for (Edge *e: v->getAdj()) {
+        for (Edge *e: currVertex->getAdj()) {
             if (!e->isSelected()) {
                 unvisitedEdges.push_back(e);
             }
@@ -405,11 +396,12 @@ vector<Vertex*> Graph::findEulerianCycle(Vertex* startVertex) {
         if (!unvisitedEdges.empty()) {
             Edge *e = unvisitedEdges.front();
             e->setSelected(true);
-            e->getReverse()->setSelected(true);
-            stack.push(e->getDest());
+            //e->getReverse()->setSelected(true);
+            vertexStack.push(e->getDest());
         }else{
-            res.push_back(v);
-            stack.pop();
+            res.push_back(currVertex);
+            currVertex = vertexStack.top();
+            vertexStack.pop();
         }
     }
 
@@ -420,7 +412,7 @@ std::vector<Vertex*> Graph::findEulerianCircuit() {
     std::vector<Vertex*> cycle;
 
     Vertex* startVertex = findVertex(0);
-
+    cycle.push_back(startVertex);
     std::stack<Edge*> edgeStack;
     edgeStack.push(startVertex->getAdj()[0]);
 
@@ -460,13 +452,9 @@ std::vector<Vertex*> Graph::findEulerianCircuit() {
 
 double Graph::hamiltonPath(vector<Vertex*> eurlerian){
     double result = 0.0;
-    for (auto e: findVertex(0)->getAdj()){
-        if (e->getDest() == eurlerian[0]){
-            result += e->getWeight();
-        }
-    }
-    cout << "0" << " ";
+
     cout << eurlerian[0]->getId() << " ";
+    eurlerian[0]->setVisited(true);
     for (int i = 0; i < eurlerian.size() - 1; i++){
         if (eurlerian[i+1]->isVisited()){
             continue;
@@ -480,10 +468,67 @@ double Graph::hamiltonPath(vector<Vertex*> eurlerian){
             eurlerian[i+1]->setVisited(true);
             cout << eurlerian[i+1]->getId() << " ";
         }
-
     }
+
+    for (auto e: eurlerian[eurlerian.size() - 1]->getAdj()){
+        if (e->getDest()->getId() == 0){
+            result += e->getWeight();
+        }
+    }
+    cout << "0" << " ";
     cout << endl << "e o seu custo é: ";
     return result;
+}
+
+void Graph::nearestNeighbour() {
+    vector<Vertex*> path;  // Caminho percorrido pelo caixeiro
+    unordered_set<Vertex*> unvisited;  // Conjunto de vértices não visitados
+
+    // Adicionar todos os vértices do grafo ao conjunto de não visitados
+    for (auto vertex : vertexSet) {
+        unvisited.insert(vertex);
+    }
+
+    // Escolher o primeiro vértice aleatoriamente
+    Vertex* current = findVertex(0);
+    unvisited.erase(current);
+    path.push_back(current);
+
+    // Enquanto ainda houver vértices não visitados
+    while (!unvisited.empty()) {
+        double minDistance = numeric_limits<double>::max();
+        Vertex* next;
+
+        // Encontrar o vértice não visitado mais próximo do vértice atual
+        for (auto vertex : unvisited) {
+            double distance = getDistance(current, vertex);
+            if (distance < minDistance) {
+                minDistance = distance;
+                next = vertex;
+            }
+        }
+
+        // Adicionar o vértice mais próximo ao caminho e removê-lo dos não visitados
+        unvisited.erase(next);
+        path.push_back(next);
+        current = next;
+    }
+
+    // Adicionar a aresta de retorno ao primeiro vértice
+    path.push_back(path[0]);
+
+    // Imprimir o caminho e o peso total
+    cout << "Caminho: ";
+    double totalWeight = 0.0;
+    for (int i = 0; i < path.size() - 1; i++) {
+        Vertex* v1 = path[i];
+        Vertex* v2 = path[i + 1];
+        double weight = getDistance(v1, v2);
+        totalWeight += weight;
+        cout << v1->getId() << " -> ";
+    }
+    cout << path.back()->getId() << endl;
+    cout << "Peso total: " << totalWeight << endl;
 }
 
 void Graph::aux4_1(Graph &gextra){
@@ -504,6 +549,10 @@ void Graph::aux4_2(Graph &gextra) {
     auto start = high_resolution_clock::now();
 
     gextra.Prim();
+    for(auto *v : gextra.getVertexSet()){
+        v->setVisited(false);
+        v->setPath(nullptr);
+    }
     auto arr = gextra.preOrderTraversal(gextra.findVertex(0));
     for (auto v: arr){
         cout << v->getId() << " ";
@@ -542,7 +591,14 @@ void Graph::final4_3(Graph &gextra){
 
     auto cycles = mst.findEulerianCycle(mst.findVertex(0));
 
-    cout << mst.hamiltonPath(cycles) << endl ;
+    for (auto v: cycles){
+        cout << v->getId() << " ";
+    }
+    cout << endl;
+
+    cout << mst.hamiltonPath(cycles) << endl;
+
+    //gextra.nearestNeighbour();
 
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
