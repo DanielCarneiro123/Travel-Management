@@ -1,0 +1,168 @@
+\hypertarget{_graph_8h_source}{}\doxysection{Graph.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//}}
+\DoxyCodeLine{2 \textcolor{comment}{// Created by Daniel on 04/05/2023.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef PROJETO2\_DA\_GRAPH\_H}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define PROJETO2\_DA\_GRAPH\_H}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <queue>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <limits>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <unordered\_set>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}MutablePriorityQueue.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}VertexEdge.h"{}}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{class }\mbox{\hyperlink{class_graph}{Graph}} \{}
+\DoxyCodeLine{21 \textcolor{keyword}{public}:}
+\DoxyCodeLine{22     \mbox{\hyperlink{class_graph}{\string~Graph}}();}
+\DoxyCodeLine{23     \textcolor{comment}{/*}}
+\DoxyCodeLine{24 \textcolor{comment}{    * Auxiliary function to find a vertex with a given ID.}}
+\DoxyCodeLine{25 \textcolor{comment}{    */}}
+\DoxyCodeLine{26     \mbox{\hyperlink{class_vertex}{Vertex}} *findVertex(\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&\textcolor{keywordtype}{id}) \textcolor{keyword}{const};}
+\DoxyCodeLine{27     \textcolor{comment}{/*}}
+\DoxyCodeLine{28 \textcolor{comment}{     *  Adds a vertex with a given content or info (in) to a graph (this).}}
+\DoxyCodeLine{29 \textcolor{comment}{     *  Returns true if successful, and false if a vertex with that content already exists.}}
+\DoxyCodeLine{30 \textcolor{comment}{     */}}
+\DoxyCodeLine{31     \textcolor{keywordtype}{bool} addVertex(\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&\textcolor{keywordtype}{id});}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{comment}{/*}}
+\DoxyCodeLine{34 \textcolor{comment}{     * Adds an edge to a graph (this), given the contents of the source and}}
+\DoxyCodeLine{35 \textcolor{comment}{     * destination vertices and the edge weight (w).}}
+\DoxyCodeLine{36 \textcolor{comment}{     * Returns true if successful, and false if the source or destination vertex does not exist.}}
+\DoxyCodeLine{37 \textcolor{comment}{     */}}
+\DoxyCodeLine{38     \textcolor{keywordtype}{bool} addEdge(\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&sourc, \textcolor{keyword}{const} \textcolor{keywordtype}{int} \&dest, \textcolor{keywordtype}{double} w);}
+\DoxyCodeLine{39     \textcolor{keywordtype}{bool} addBidirectionalEdge(\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&sourc, \textcolor{keyword}{const} \textcolor{keywordtype}{int} \&dest, \textcolor{keywordtype}{double} w);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keywordtype}{int} getNumVertex() \textcolor{keyword}{const};}
+\DoxyCodeLine{42     std::vector<Vertex *> getVertexSet() \textcolor{keyword}{const};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{keywordtype}{void} initialize(\textcolor{keyword}{const} std::string \&filename);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keywordtype}{void} printPath();}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keywordtype}{double} PathCost(\textcolor{keyword}{const} std::vector<int> path);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keywordtype}{void} permute(std::vector<int> \&path, \textcolor{keywordtype}{int} start, \textcolor{keywordtype}{double} \&minCost, std::vector<int> \&bestPath);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     std::vector<int> solveTSP();}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{keywordtype}{void}}
+\DoxyCodeLine{56     tsp(\mbox{\hyperlink{class_vertex}{Vertex}}* currVertex, \textcolor{keywordtype}{int} currInd, \textcolor{keywordtype}{double} currDist, \textcolor{keywordtype}{double} \&minDist,}
+\DoxyCodeLine{57         std::vector<Vertex*> \&path, std::vector<Vertex*> \&minpath);}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{double} tspBT(\textcolor{keywordtype}{int} initialNode, std::vector<Vertex*> \&path);}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \textcolor{keywordtype}{void} TriangleApprox();}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     std::vector<Vertex *> tsp\_v2();}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{keywordtype}{void} Prim();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     \textcolor{keywordtype}{double} calculatePathDistance(\textcolor{keyword}{const} std::vector<Vertex *> \&path);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70     \textcolor{keywordtype}{void} dfs(\mbox{\hyperlink{class_vertex}{Vertex}} *currentVertex, std::vector<Vertex *> \&path);}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72     std::vector<Vertex *> preOrderTraversal(\mbox{\hyperlink{class_vertex}{Vertex}} *vertex);}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74     \textcolor{keywordtype}{bool} addVertexV2(\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&\textcolor{keywordtype}{id}, \textcolor{keywordtype}{double} longitude = 0, \textcolor{keywordtype}{double} latitude = 0);}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     std::vector<std::vector<Vertex*>> divideGraph(\textcolor{keyword}{const} std::vector<Vertex*> vertexSet);}
+\DoxyCodeLine{77     std::vector<std::vector<Vertex*>> clusteringFunction(\textcolor{keyword}{const} std::vector<Vertex*>\& subPath);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     \textcolor{keywordtype}{void} tspCombined();}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     std::vector<Vertex *> OddVertex(\mbox{\hyperlink{class_graph}{Graph}} mst);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     std::vector<int> findMinimumCostPerfectMatching(\textcolor{keyword}{const} std::vector<Vertex *> \&oddVertices);}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85     std::vector<Vertex*> findEulerianCircuit();}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \mbox{\hyperlink{class_graph}{Graph}} createSubgraph(\textcolor{keyword}{const} std::vector<Vertex*> \&oddV);}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90     \textcolor{keywordtype}{bool} addBidirectionalEdge2(\mbox{\hyperlink{class_vertex}{Vertex}} *\&v1, \mbox{\hyperlink{class_vertex}{Vertex}} *\&v2, \textcolor{keywordtype}{double} w);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     std::vector<Vertex*> convertToHamiltonianPath();}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     std::vector<Edge*> MinimumPerfectMatching(std::vector<Vertex*>oddVert);}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96     \textcolor{keywordtype}{void} uniteGraphs(std::vector<Edge*>finalEdges);}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98     \mbox{\hyperlink{class_graph}{Graph}} createMST();}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100     std::vector<Vertex *> findEulerianCycle(\mbox{\hyperlink{class_vertex}{Vertex}} *startVertex);}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     \textcolor{keywordtype}{double} hamiltonPath(std::vector<Vertex *> eurlerian);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104     \textcolor{keywordtype}{void} nearestNeighbour();}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \textcolor{keywordtype}{void} final4\_3(\mbox{\hyperlink{class_graph}{Graph}} \&gextra);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108     \textcolor{keywordtype}{void} aux4\_2(\mbox{\hyperlink{class_graph}{Graph}} \&gextra);}
+\DoxyCodeLine{109     \textcolor{keywordtype}{void} aux4\_1(\mbox{\hyperlink{class_graph}{Graph}} \&gextra);}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{114     std::vector<Vertex *> vertexSet;    \textcolor{comment}{// vertex set}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116     \textcolor{keywordtype}{double} ** distMatrix = \textcolor{keyword}{nullptr};   \textcolor{comment}{// dist matrix for Floyd-\/Warshall}}
+\DoxyCodeLine{117     \textcolor{keywordtype}{int} **pathMatrix = \textcolor{keyword}{nullptr};   \textcolor{comment}{// path matrix for Floyd-\/Warshall}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119     \textcolor{comment}{/*}}
+\DoxyCodeLine{120 \textcolor{comment}{     * Finds the index of the vertex with a given content.}}
+\DoxyCodeLine{121 \textcolor{comment}{     */}}
+\DoxyCodeLine{122     \textcolor{keywordtype}{int} findVertexIdx(\textcolor{keyword}{const} \textcolor{keywordtype}{int} \&\textcolor{keywordtype}{id}) \textcolor{keyword}{const};}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124     \textcolor{keywordtype}{bool} isVisited(\textcolor{keywordtype}{int} currInd, std::vector<int> \&path);}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127     std::vector<Vertex *> prim();}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130     \textcolor{keywordtype}{double} haversine(\textcolor{keywordtype}{double} lat1, \textcolor{keywordtype}{double} lon1, \textcolor{keywordtype}{double} lat2, \textcolor{keywordtype}{double} lon2);}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132     \textcolor{keywordtype}{bool} hasCon(\mbox{\hyperlink{class_vertex}{Vertex}}* v1, \mbox{\hyperlink{class_vertex}{Vertex}}* v2);}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136     std::vector<Vertex *> preOrderTraversal2(\mbox{\hyperlink{class_vertex}{Vertex}} *vertex, std::vector<Vertex *> cluster);}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138     std::vector<Vertex *> tspTwoStepApproximation(\textcolor{keyword}{const} std::vector<Vertex *> \&cluster);}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140     \textcolor{keywordtype}{double} getDistance(\mbox{\hyperlink{class_vertex}{Vertex}} *v1, \mbox{\hyperlink{class_vertex}{Vertex}} *v2);}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142     \mbox{\hyperlink{class_vertex}{Vertex}} *findNearestVertex(\mbox{\hyperlink{class_vertex}{Vertex}} *\&vertex, \mbox{\hyperlink{class_graph}{Graph}} \&graph);}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     std::vector<std::pair<Vertex *, Vertex *>>}
+\DoxyCodeLine{146     findMissingPoints(\textcolor{keyword}{const} \mbox{\hyperlink{class_graph}{Graph}} \&oddDegreeSubgraph, \mbox{\hyperlink{class_graph}{Graph}} \&minimumSpanningTree);}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148     \textcolor{keywordtype}{void} DFS(\mbox{\hyperlink{class_vertex}{Vertex}}* v, std::vector<Edge*>\& visitedEdges, std::vector<std::vector<Vertex*>>\& cycles);}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150     \textcolor{keywordtype}{bool} IsOdd(\mbox{\hyperlink{class_vertex}{Vertex}} *v, std::vector<Vertex*>oddVertices);}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153     \textcolor{keywordtype}{double} convert\_to\_radians(\textcolor{keywordtype}{double} coord);}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156     \textcolor{keywordtype}{double} removeRepeatedVertices(std::vector<Vertex *> eulerian, \mbox{\hyperlink{class_graph}{Graph}} \&gextra);}
+\DoxyCodeLine{157 \};}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159 \textcolor{keywordtype}{void} deleteMatrix(\textcolor{keywordtype}{int} **m, \textcolor{keywordtype}{int} n);}
+\DoxyCodeLine{160 \textcolor{keywordtype}{void} deleteMatrix(\textcolor{keywordtype}{double} **m, \textcolor{keywordtype}{int} n);}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//PROJETO2\_DA\_GRAPH\_H}}
+
+\end{DoxyCode}

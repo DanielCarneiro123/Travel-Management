@@ -1,0 +1,182 @@
+\hypertarget{class_graph}{}\doxysection{Graph Class Reference}
+\label{class_graph}\index{Graph@{Graph}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_a089f7fc73ea9976295d387846ad36c69}\label{class_graph_a089f7fc73ea9976295d387846ad36c69}} 
+\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ {\bfseries find\+Vertex} (const int \&id) const
+\item 
+\mbox{\Hypertarget{class_graph_ad354c018724ef3f137a0b8554089105e}\label{class_graph_ad354c018724ef3f137a0b8554089105e}} 
+bool {\bfseries add\+Vertex} (const int \&id)
+\item 
+\mbox{\Hypertarget{class_graph_a516f4487d70f4b15e413447afa8c2310}\label{class_graph_a516f4487d70f4b15e413447afa8c2310}} 
+bool {\bfseries add\+Edge} (const int \&sourc, const int \&dest, double w)
+\item 
+\mbox{\Hypertarget{class_graph_a5d6b6b10ebe49cc0191ab45151cd49e7}\label{class_graph_a5d6b6b10ebe49cc0191ab45151cd49e7}} 
+bool {\bfseries add\+Bidirectional\+Edge} (const int \&sourc, const int \&dest, double w)
+\item 
+\mbox{\Hypertarget{class_graph_abb5e0517e2979c54eebdafc2a9875e8f}\label{class_graph_abb5e0517e2979c54eebdafc2a9875e8f}} 
+int {\bfseries get\+Num\+Vertex} () const
+\item 
+\mbox{\Hypertarget{class_graph_a619ac583094079134074658e29463c0e}\label{class_graph_a619ac583094079134074658e29463c0e}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries get\+Vertex\+Set} () const
+\item 
+\mbox{\Hypertarget{class_graph_a5c1ab2322e063a96608817e2d9972b67}\label{class_graph_a5c1ab2322e063a96608817e2d9972b67}} 
+void {\bfseries initialize} (const std\+::string \&filename)
+\item 
+\mbox{\Hypertarget{class_graph_ac0404f3799b95506331ac44144ec0939}\label{class_graph_ac0404f3799b95506331ac44144ec0939}} 
+void {\bfseries print\+Path} ()
+\item 
+\mbox{\Hypertarget{class_graph_a631e5f9cc17f97f060abe634425c8a0d}\label{class_graph_a631e5f9cc17f97f060abe634425c8a0d}} 
+double {\bfseries Path\+Cost} (const std\+::vector$<$ int $>$ path)
+\item 
+\mbox{\Hypertarget{class_graph_a2fe4ed8463bfcc8a4dc97e585e8962d2}\label{class_graph_a2fe4ed8463bfcc8a4dc97e585e8962d2}} 
+void {\bfseries permute} (std\+::vector$<$ int $>$ \&path, int start, double \&min\+Cost, std\+::vector$<$ int $>$ \&best\+Path)
+\item 
+\mbox{\Hypertarget{class_graph_acfc107a247ea181b7ddcb5cd142992fc}\label{class_graph_acfc107a247ea181b7ddcb5cd142992fc}} 
+std\+::vector$<$ int $>$ {\bfseries solve\+TSP} ()
+\item 
+\mbox{\Hypertarget{class_graph_afb851bf3086e4caed3aa5c27f35e4719}\label{class_graph_afb851bf3086e4caed3aa5c27f35e4719}} 
+void {\bfseries tsp} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$curr\+Vertex, int curr\+Ind, double curr\+Dist, double \&min\+Dist, std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&path, std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&minpath)
+\item 
+\mbox{\Hypertarget{class_graph_addf1cc62bdc8e8799022b1aad7791a4b}\label{class_graph_addf1cc62bdc8e8799022b1aad7791a4b}} 
+double {\bfseries tsp\+BT} (int initial\+Node, std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&path)
+\item 
+\mbox{\Hypertarget{class_graph_ab6bba20acfc1922d19e5767dc3bee7bf}\label{class_graph_ab6bba20acfc1922d19e5767dc3bee7bf}} 
+void {\bfseries Triangle\+Approx} ()
+\item 
+\mbox{\Hypertarget{class_graph_aa70867045a712312cf427d02106ac685}\label{class_graph_aa70867045a712312cf427d02106ac685}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries tsp\+\_\+v2} ()
+\item 
+\mbox{\Hypertarget{class_graph_a3f40fc22807882a22ec021deb37ce48d}\label{class_graph_a3f40fc22807882a22ec021deb37ce48d}} 
+void {\bfseries Prim} ()
+\item 
+\mbox{\Hypertarget{class_graph_a260f0cafcfe7175edb6ace0218eda29b}\label{class_graph_a260f0cafcfe7175edb6ace0218eda29b}} 
+double {\bfseries calculate\+Path\+Distance} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&path)
+\item 
+\mbox{\Hypertarget{class_graph_aff438864d84cd901d908166ff5e5d908}\label{class_graph_aff438864d84cd901d908166ff5e5d908}} 
+void {\bfseries dfs} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$current\+Vertex, std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&path)
+\item 
+\mbox{\Hypertarget{class_graph_ab37cbfd6cc218cc2e2e38b2debba6d54}\label{class_graph_ab37cbfd6cc218cc2e2e38b2debba6d54}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries pre\+Order\+Traversal} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$vertex)
+\item 
+\mbox{\Hypertarget{class_graph_a8c08e34d26d1da209d3bb1fe17452777}\label{class_graph_a8c08e34d26d1da209d3bb1fe17452777}} 
+bool {\bfseries add\+Vertex\+V2} (const int \&id, double longitude=0, double latitude=0)
+\item 
+\mbox{\Hypertarget{class_graph_a27bc650a92ac6b034b76e70cea724267}\label{class_graph_a27bc650a92ac6b034b76e70cea724267}} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ $>$ {\bfseries divide\+Graph} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ vertex\+Set)
+\item 
+\mbox{\Hypertarget{class_graph_a64e87af00d2dab03d265d1e0f0a1ca75}\label{class_graph_a64e87af00d2dab03d265d1e0f0a1ca75}} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ $>$ {\bfseries clustering\+Function} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&sub\+Path)
+\item 
+\mbox{\Hypertarget{class_graph_a1c5dc51e77c2e9a0d3e27964570ec23b}\label{class_graph_a1c5dc51e77c2e9a0d3e27964570ec23b}} 
+void {\bfseries tsp\+Combined} ()
+\item 
+\mbox{\Hypertarget{class_graph_a174c165d51a54f936575633a1bcf6c4f}\label{class_graph_a174c165d51a54f936575633a1bcf6c4f}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries Odd\+Vertex} (\mbox{\hyperlink{class_graph}{Graph}} mst)
+\item 
+\mbox{\Hypertarget{class_graph_ad33f2b7bb1c58a1eea8ed17569e01ae0}\label{class_graph_ad33f2b7bb1c58a1eea8ed17569e01ae0}} 
+std\+::vector$<$ int $>$ {\bfseries find\+Minimum\+Cost\+Perfect\+Matching} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&odd\+Vertices)
+\item 
+\mbox{\Hypertarget{class_graph_ad7430de3c2357f79e971137077b45f74}\label{class_graph_ad7430de3c2357f79e971137077b45f74}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries find\+Eulerian\+Circuit} ()
+\item 
+\mbox{\Hypertarget{class_graph_a26470fd08759da4321b93e7eea4fe719}\label{class_graph_a26470fd08759da4321b93e7eea4fe719}} 
+\mbox{\hyperlink{class_graph}{Graph}} {\bfseries create\+Subgraph} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&oddV)
+\item 
+\mbox{\Hypertarget{class_graph_aedd8c4f217f50e6a203354cd4f630d12}\label{class_graph_aedd8c4f217f50e6a203354cd4f630d12}} 
+bool {\bfseries add\+Bidirectional\+Edge2} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$\&v1, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$\&v2, double w)
+\item 
+\mbox{\Hypertarget{class_graph_a678e7b1060666bf3d2f94493ca3ebd64}\label{class_graph_a678e7b1060666bf3d2f94493ca3ebd64}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries convert\+To\+Hamiltonian\+Path} ()
+\item 
+\mbox{\Hypertarget{class_graph_ad3df943e474badc8e79ad58f36e86984}\label{class_graph_ad3df943e474badc8e79ad58f36e86984}} 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $\ast$ $>$ {\bfseries Minimum\+Perfect\+Matching} (std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$odd\+Vert)
+\item 
+\mbox{\Hypertarget{class_graph_a096a56f02134a270ff8f91697413e4b9}\label{class_graph_a096a56f02134a270ff8f91697413e4b9}} 
+void {\bfseries unite\+Graphs} (std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $\ast$ $>$final\+Edges)
+\item 
+\mbox{\Hypertarget{class_graph_a6cb49a8e6ecf815e207596b8d4cde3ce}\label{class_graph_a6cb49a8e6ecf815e207596b8d4cde3ce}} 
+\mbox{\hyperlink{class_graph}{Graph}} {\bfseries create\+MST} ()
+\item 
+\mbox{\Hypertarget{class_graph_acbe3364391b6537e0551173024f9f8b7}\label{class_graph_acbe3364391b6537e0551173024f9f8b7}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries find\+Eulerian\+Cycle} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$start\+Vertex)
+\item 
+\mbox{\Hypertarget{class_graph_ae568f6cf21b278d0bdfa6c127570798c}\label{class_graph_ae568f6cf21b278d0bdfa6c127570798c}} 
+double {\bfseries hamilton\+Path} (std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ eurlerian)
+\item 
+\mbox{\Hypertarget{class_graph_a0a3895554f311bb1a6b3c700a5643907}\label{class_graph_a0a3895554f311bb1a6b3c700a5643907}} 
+void {\bfseries nearest\+Neighbour} ()
+\item 
+\mbox{\Hypertarget{class_graph_a4641b0175d8534cdd35d491796137899}\label{class_graph_a4641b0175d8534cdd35d491796137899}} 
+void {\bfseries final4\+\_\+3} (\mbox{\hyperlink{class_graph}{Graph}} \&gextra)
+\item 
+\mbox{\Hypertarget{class_graph_a7f58f6bf7e636f8c0c3af16780557c89}\label{class_graph_a7f58f6bf7e636f8c0c3af16780557c89}} 
+void {\bfseries aux4\+\_\+2} (\mbox{\hyperlink{class_graph}{Graph}} \&gextra)
+\item 
+\mbox{\Hypertarget{class_graph_ae06d0bd51a6c9b9a5da8213c0db86d69}\label{class_graph_ae06d0bd51a6c9b9a5da8213c0db86d69}} 
+void {\bfseries aux4\+\_\+1} (\mbox{\hyperlink{class_graph}{Graph}} \&gextra)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_a7dfcef08a9286cf144902cd7e56940ee}\label{class_graph_a7dfcef08a9286cf144902cd7e56940ee}} 
+int {\bfseries find\+Vertex\+Idx} (const int \&id) const
+\item 
+\mbox{\Hypertarget{class_graph_a169f6d8406fdcbd4a4649f02c68532f7}\label{class_graph_a169f6d8406fdcbd4a4649f02c68532f7}} 
+bool {\bfseries is\+Visited} (int curr\+Ind, std\+::vector$<$ int $>$ \&path)
+\item 
+\mbox{\Hypertarget{class_graph_a46765e257c71ef0602b66d35c5c835d5}\label{class_graph_a46765e257c71ef0602b66d35c5c835d5}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries prim} ()
+\item 
+\mbox{\Hypertarget{class_graph_a8b0db3dbf1368e972e7c551f6084db62}\label{class_graph_a8b0db3dbf1368e972e7c551f6084db62}} 
+double {\bfseries haversine} (double lat1, double lon1, double lat2, double lon2)
+\item 
+\mbox{\Hypertarget{class_graph_a80412e80dd1bb7410b2697590fbf8add}\label{class_graph_a80412e80dd1bb7410b2697590fbf8add}} 
+bool {\bfseries has\+Con} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$v1, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$v2)
+\item 
+\mbox{\Hypertarget{class_graph_aeb6f50135fbb77082861da080cb1d4ae}\label{class_graph_aeb6f50135fbb77082861da080cb1d4ae}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries pre\+Order\+Traversal2} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$vertex, std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ cluster)
+\item 
+\mbox{\Hypertarget{class_graph_a98ff913dbe9c1492e7f2e7b2bcf2fc9b}\label{class_graph_a98ff913dbe9c1492e7f2e7b2bcf2fc9b}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries tsp\+Two\+Step\+Approximation} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&cluster)
+\item 
+\mbox{\Hypertarget{class_graph_ae430aaa3354190a81a1e98a016c85af3}\label{class_graph_ae430aaa3354190a81a1e98a016c85af3}} 
+double {\bfseries get\+Distance} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$v1, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$v2)
+\item 
+\mbox{\Hypertarget{class_graph_a76cf2f49be969339fd20995d22f29459}\label{class_graph_a76cf2f49be969339fd20995d22f29459}} 
+\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ {\bfseries find\+Nearest\+Vertex} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$\&vertex, \mbox{\hyperlink{class_graph}{Graph}} \&graph)
+\item 
+\mbox{\Hypertarget{class_graph_a68b156d7b6c24a3f87ed65f696c11d12}\label{class_graph_a68b156d7b6c24a3f87ed65f696c11d12}} 
+std\+::vector$<$ std\+::pair$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ $>$ {\bfseries find\+Missing\+Points} (const \mbox{\hyperlink{class_graph}{Graph}} \&odd\+Degree\+Subgraph, \mbox{\hyperlink{class_graph}{Graph}} \&minimum\+Spanning\+Tree)
+\item 
+\mbox{\Hypertarget{class_graph_a1709a4b2d7395e428736b7aec8f23ab7}\label{class_graph_a1709a4b2d7395e428736b7aec8f23ab7}} 
+void {\bfseries DFS} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$v, std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $\ast$ $>$ \&visited\+Edges, std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ $>$ \&cycles)
+\item 
+\mbox{\Hypertarget{class_graph_a694be517451e70ee8786a2c05186e97e}\label{class_graph_a694be517451e70ee8786a2c05186e97e}} 
+bool {\bfseries Is\+Odd} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$v, std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$odd\+Vertices)
+\item 
+\mbox{\Hypertarget{class_graph_ab03486e54af0e44f51f4cbd929a1fbaf}\label{class_graph_ab03486e54af0e44f51f4cbd929a1fbaf}} 
+double {\bfseries convert\+\_\+to\+\_\+radians} (double coord)
+\item 
+\mbox{\Hypertarget{class_graph_aa8de26a94ccf0dbc5652c395afca490a}\label{class_graph_aa8de26a94ccf0dbc5652c395afca490a}} 
+double {\bfseries remove\+Repeated\+Vertices} (std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ eulerian, \mbox{\hyperlink{class_graph}{Graph}} \&gextra)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_aa9b0a6d8ad43c5eabaca5a7140bcc8b6}\label{class_graph_aa9b0a6d8ad43c5eabaca5a7140bcc8b6}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries vertex\+Set}
+\item 
+\mbox{\Hypertarget{class_graph_a9e61864da69191c1896a25a708d1a02d}\label{class_graph_a9e61864da69191c1896a25a708d1a02d}} 
+double $\ast$$\ast$ {\bfseries dist\+Matrix} = nullptr
+\item 
+\mbox{\Hypertarget{class_graph_a3ae09699c3616af3ebfcb1eb045f2b62}\label{class_graph_a3ae09699c3616af3ebfcb1eb045f2b62}} 
+int $\ast$$\ast$ {\bfseries path\+Matrix} = nullptr
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graph.\+h\item 
+Graph.\+cpp\end{DoxyCompactItemize}
