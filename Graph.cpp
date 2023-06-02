@@ -15,6 +15,20 @@
 using namespace std;
 using namespace std::chrono;
 
+/**
+ * @brief Destrutor da classe Graph.
+ *
+ * O destrutor da classe Graph é responsável por liberar recursos alocados dinamicamente
+ * durante a vida útil do objeto Graph. Neste caso, ele é responsável por liberar a memória
+ * alocada para as matrizes de distâncias e caminhos.
+ *
+ * Como não há tarefas adicionais de limpeza necessárias neste caso, o destrutor está vazio.
+ *
+ * @note Esta função é chamada automaticamente quando um objeto Graph é destruído.
+ */
+Graph::~Graph() {
+}
+
 
 
 /**
@@ -646,7 +660,9 @@ double Graph::hamiltonPath(vector<Vertex*> eulerian) {
 /**
  * @brief Implementa o algoritmo do vizinho mais próximo para encontrar um caminho hamiltoniano aproximado no grafo.
  */
-void Graph::nearestNeighbour() {
+void Graph::nearestNeighbour(Graph &gextra) {
+    auto start = high_resolution_clock::now();
+
     vector<Vertex*> path;  // Caminho percorrido pelo caixeiro
     unordered_set<Vertex*> unvisited;  // Conjunto de vértices não visitados
 
@@ -667,7 +683,7 @@ void Graph::nearestNeighbour() {
 
         // Encontrar o vértice não visitado mais próximo do vértice atual
         for (auto vertex : unvisited) {
-            double distance = getDistance(current, vertex);
+            double distance = gextra.getDistance(current, vertex);
             if (distance < minDistance) {
                 minDistance = distance;
                 next = vertex;
@@ -691,10 +707,15 @@ void Graph::nearestNeighbour() {
         Vertex* v2 = path[i + 1];
         double weight = getDistance(v1, v2);
         totalWeight += weight;
-        cout << v1->getId() << " -> ";
+        cout << v1->getId() << " ";
     }
     cout << path.back()->getId() << endl;
-    cout << "Peso total: " << totalWeight << endl;
+    cout << "e o seu custo é: " << totalWeight << endl;
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    cout << "Tempo de execução: " << duration.count() / 1000000.0 << " segundos" << endl << endl;
 }
 
 /**
@@ -705,11 +726,12 @@ void Graph::nearestNeighbour() {
  * @return O peso do caminho hamiltoniano resultante.
  */
 double Graph::removeRepeatedVertices(vector<Vertex*> eulerian, Graph &gextra) {
-    vector<Vertex*> hamiltonianPath;
+
+    vector<Vertex *> hamiltonianPath;
     double pathWeight = 0;
     double distance = 0;
 
-    for (auto vertex : eulerian) {
+    for (auto vertex: eulerian) {
         if (!vertex->isVisited()) {
             vertex->setVisited(true);
             hamiltonianPath.push_back(vertex);
@@ -717,33 +739,23 @@ double Graph::removeRepeatedVertices(vector<Vertex*> eulerian, Graph &gextra) {
     }
 
     for (int i = 0; i < hamiltonianPath.size(); i++) {
-        Vertex* nextVertex;
-        Vertex* currVertex = findVertex(hamiltonianPath[i]->getId());
+        Vertex *nextVertex;
+        Vertex *currVertex = findVertex(hamiltonianPath[i]->getId());
         if (i == hamiltonianPath.size() - 1) {
             nextVertex = findVertex(0);
         } else {
             nextVertex = findVertex(hamiltonianPath[i + 1]->getId());
         }
 
-        cout << currVertex->getId() << " --(";
+        cout << currVertex->getId() << " ";
+
 
         distance += gextra.getDistance(currVertex, nextVertex);
 
-        cout << gextra.getDistance(currVertex, nextVertex) << ")-- ";
-
-        /*
-        for (auto edge : currVertex->getAdj()) {
-            if (edge->getDest() == nextVertex) {
-                pathWeight += edge->getWeight();
-                cout << edge->getWeight() << ")-- ";
-            }
-        }
-         */
     }
-    cout << endl << " distancia: " << distance << endl;
+    cout << endl << "e o seu custo é: ";
     return distance;
 }
-
 
 /**
  * @brief Função auxiliar para resolver o problema do caixeiro viajante utilizando busca exaustiva.
@@ -817,15 +829,6 @@ void Graph::final4_3(Graph &gextra) {
     auto cycles = mst.findEulerianCycle(mst.findVertex(0));
 
     cout << mst.removeRepeatedVertices(cycles, gextra) << endl;
-
-    /*
-    for (auto v: cycles){
-        cout << v->getId() << " ";
-    }
-    cout << endl;
-    */
-
-    //gextra.nearestNeighbour();
 
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);

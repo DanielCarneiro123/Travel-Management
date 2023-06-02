@@ -101,7 +101,6 @@ public:
 
     double hamiltonPath(std::vector<Vertex *> eurlerian);
 
-    void nearestNeighbour();
 
     void final4_3(Graph &gextra);
 
@@ -109,6 +108,7 @@ public:
     void aux4_1(Graph &gextra);
 
 
+    void nearestNeighbour(Graph &gextra);
 
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
@@ -154,6 +154,7 @@ protected:
 
 
     double removeRepeatedVertices(std::vector<Vertex *> eulerian, Graph &gextra);
+
 };
 
 void deleteMatrix(int **m, int n);

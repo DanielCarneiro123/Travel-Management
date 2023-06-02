@@ -209,9 +209,8 @@ int main() {
         if (stringResposta == "3") {
             while (stringResposta != "e") {
                 cout << "============================ MENU ================================" << endl;
-                cout << "Testar com os Toy-Graphs?  - [PRESS 1]" << endl;
-                cout << "Testar com os Extra Fully Connected Graphs?  - [PRESS 2]" << endl;
-                cout << "Testar com os Real World Graphs?  - [PRESS 3]" << endl;
+                cout << "Testar com o algoritmo de Christofides?  - [PRESS 1]" << endl;
+                cout << "Testar com o Nearest Neighbour?  - [PRESS 2]" << endl;
                 cout << "Voltar para tras - [PRESS e] " << endl;
                 cout << "==================================================================" << endl;
                 cin >> stringResposta;
@@ -221,94 +220,236 @@ int main() {
 
                 if (stringResposta == "1") {
                     while (stringResposta != "e") {
-                        Graph gShipping = rf.edgesGraphs("../ProjectData/Toy-Graphs/shipping.csv");
-                        cout << "O caminho do Graph Shipping é: ";
-                        gShipping.final4_3(gShipping);
-
-                        Graph gStadiums = rf.edgesGraphs("../ProjectData/Toy-Graphs/stadiums.csv");
-                        cout << "O caminho do Graph Stadiums é: ";
-                        gStadiums.final4_3(gStadiums);
-
-                        Graph gTourism = rf.edgesGraphs("../ProjectData/Toy-Graphs/tourism.csv");
-                        cout << "O caminho do Graph Tourism é: ";
-                        gTourism.final4_3(gTourism);
-
+                        cout << "============================ MENU ================================" << endl;
+                        cout << "Testar com os Toy-Graphs?  - [PRESS 1]" << endl;
+                        cout << "Testar com os Extra Fully Connected Graphs?  - [PRESS 2]" << endl;
+                        cout << "Testar com os Real World Graphs?  - [PRESS 3]" << endl;
                         cout << "Voltar para tras - [PRESS e] " << endl;
                         cout << "==================================================================" << endl;
                         cin >> stringResposta;
                         if (stringResposta == "e") break;
                         cin.ignore();
+                        cout << endl;
+
+                        if (stringResposta == "1") {
+                            while (stringResposta != "e") {
+                                Graph gShipping = rf.edgesGraphs("../ProjectData/Toy-Graphs/shipping.csv");
+                                cout << "O caminho do Graph Shipping é: ";
+                                gShipping.final4_3(gShipping);
+
+                                Graph gStadiums = rf.edgesGraphs("../ProjectData/Toy-Graphs/stadiums.csv");
+                                cout << "O caminho do Graph Stadiums é: ";
+                                gStadiums.final4_3(gStadiums);
+
+                                Graph gTourism = rf.edgesGraphs("../ProjectData/Toy-Graphs/tourism.csv");
+                                cout << "O caminho do Graph Tourism é: ";
+                                gTourism.final4_3(gTourism);
+
+                                cout << "Voltar para tras - [PRESS e] " << endl;
+                                cout << "==================================================================" << endl;
+                                cin >> stringResposta;
+                                if (stringResposta == "e") break;
+                                cin.ignore();
+                            }
+                        }
+                        if (stringResposta == "2") {
+                            while (stringResposta != "e") {
+                                Graph g25 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_25.csv");
+                                cout << "O caminho do Graph de 25 edges é: ";
+                                g25.final4_3(g25);
+
+                                Graph g50 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_50.csv");
+                                cout << "O caminho do Graph de 50 edges é: ";
+                                g50.final4_3(g50);
+
+                                Graph g75 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_75.csv");
+                                cout << "O caminho do Graph de 75 edges é: ";
+                                g75.final4_3(g75);
+
+                                Graph g100 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_100.csv");
+                                cout << "O caminho do Graph de 100 edges é: ";
+                                g100.final4_3(g100);
+
+                                Graph g200 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_200.csv");
+                                cout << "O caminho do Graph de 200 edges é: ";
+                                g200.final4_3(g200);
+
+                                Graph g300 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_300.csv");
+                                cout << "O caminho do Graph de 300 edges é: ";
+                                g300.final4_3(g300);
+
+                                Graph g400 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_400.csv");
+                                cout << "O caminho do Graph de 400 edges é: ";
+                                g400.final4_3(g400);
+
+                                Graph g500 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_500.csv");
+                                cout << "O caminho do Graph de 500 edges é: ";
+                                g500.final4_3(g500);
+
+                                Graph g600 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_600.csv");
+                                cout << "O caminho do Graph de 600 edges é: ";
+                                g600.final4_3(g600);
+
+                                Graph g700 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_700.csv");
+                                cout << "O caminho do Graph de 700 edges é: ";
+                                g700.final4_3(g700);
+
+                                Graph g800 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_800.csv");
+                                cout << "O caminho do Graph de 800 edges é: ";
+                                g800.final4_3(g800);
+
+                                Graph g900 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_900.csv");
+                                cout << "O caminho do Graph de 900 edges é: ";
+                                g900.final4_3(g900);
+
+                                cout << "Voltar para tras - [PRESS e] " << endl;
+                                cout << "==================================================================" << endl;
+                                cin >> stringResposta;
+                                if (stringResposta == "e") break;
+                                cin.ignore();
+                            }
+                        }
+                        if (stringResposta == "3") {
+                            while (stringResposta != "e") {
+
+                                Graph gWorld1 = rf.realWorldGraphs("../ProjectData/Real-world Graphs/graph1/nodes.csv",
+                                                                   "../ProjectData/Real-world Graphs/graph1/edges.csv");
+                                cout << "O caminho do Real-World Graph 1 é: ";
+                                gWorld1.final4_3(gWorld1);
+
+                                cout << "Voltar para tras - [PRESS e] " << endl;
+                                cout << "==================================================================" << endl;
+                                cin >> stringResposta;
+                                if (stringResposta == "e") break;
+                                cin.ignore();
+                            }
+                        }
                     }
                 }
                 if (stringResposta == "2") {
                     while (stringResposta != "e") {
-                        Graph g25 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_25.csv");
-                        cout << "O caminho do Graph de 25 edges é: ";
-                        g25.final4_3(g25);
-
-                        Graph g50 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_50.csv");
-                        cout << "O caminho do Graph de 50 edges é: ";
-                        g50.final4_3(g50);
-
-                        Graph g75 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_75.csv");
-                        cout << "O caminho do Graph de 75 edges é: ";
-                        g75.final4_3(g75);
-
-                        Graph g100 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_100.csv");
-                        cout << "O caminho do Graph de 100 edges é: ";
-                        g100.final4_3(g100);
-
-                        Graph g200 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_200.csv");
-                        cout << "O caminho do Graph de 200 edges é: ";
-                        g200.final4_3(g200);
-
-                        Graph g300 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_300.csv");
-                        cout << "O caminho do Graph de 300 edges é: ";
-                        g300.final4_3(g300);
-
-                        Graph g400 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_400.csv");
-                        cout << "O caminho do Graph de 400 edges é: ";
-                        g400.final4_3(g400);
-
-                        Graph g500 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_500.csv");
-                        cout << "O caminho do Graph de 500 edges é: ";
-                        g500.final4_3(g500);
-
-                        Graph g600 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_600.csv");
-                        cout << "O caminho do Graph de 600 edges é: ";
-                        g600.final4_3(g600);
-
-                        Graph g700 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_700.csv");
-                        cout << "O caminho do Graph de 700 edges é: ";
-                        g700.final4_3(g700);
-
-                        Graph g800 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_800.csv");
-                        cout << "O caminho do Graph de 800 edges é: ";
-                        g800.final4_3(g800);
-
-                        Graph g900 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_900.csv");
-                        cout << "O caminho do Graph de 900 edges é: ";
-                        g900.final4_3(g900);
-
+                        cout << "============================ MENU ================================" << endl;
+                        cout << "Testar com os Toy-Graphs?  - [PRESS 1]" << endl;
+                        cout << "Testar com os Extra Fully Connected Graphs?  - [PRESS 2]" << endl;
+                        cout << "Testar com os Real World Graphs?  - [PRESS 3]" << endl;
                         cout << "Voltar para tras - [PRESS e] " << endl;
                         cout << "==================================================================" << endl;
                         cin >> stringResposta;
                         if (stringResposta == "e") break;
                         cin.ignore();
-                    }
-                }
-                if (stringResposta == "3") {
-                    while (stringResposta != "e") {
+                        cout << endl;
 
-                        Graph gWorld1 = rf.realWorldGraphs("../ProjectData/Real-world Graphs/graph1/nodes.csv","../ProjectData/Real-world Graphs/graph1/edges.csv");
-                        cout << "O caminho do Real-World Graph 1 é: ";
-                        gWorld1.final4_3(gWorld1);
+                        if (stringResposta == "1") {
+                            while (stringResposta != "e") {
+                                Graph gShipping = rf.edgesGraphs("../ProjectData/Toy-Graphs/shipping.csv");
+                                cout << "O caminho do Graph Shipping é: ";
+                                gShipping.nearestNeighbour(gShipping);
 
-                        cout << "Voltar para tras - [PRESS e] " << endl;
-                        cout << "==================================================================" << endl;
-                        cin >> stringResposta;
-                        if (stringResposta == "e") break;
-                        cin.ignore();
+                                Graph gStadiums = rf.edgesGraphs("../ProjectData/Toy-Graphs/stadiums.csv");
+                                cout << "O caminho do Graph Stadiums é: ";
+                                gStadiums.nearestNeighbour(gStadiums);
+
+                                Graph gTourism = rf.edgesGraphs("../ProjectData/Toy-Graphs/tourism.csv");
+                                cout << "O caminho do Graph Tourism é: ";
+                                gTourism.nearestNeighbour(gTourism);
+
+                                cout << "Voltar para tras - [PRESS e] " << endl;
+                                cout << "==================================================================" << endl;
+                                cin >> stringResposta;
+                                if (stringResposta == "e") break;
+                                cin.ignore();
+                            }
+                        }
+                        if (stringResposta == "2") {
+                            while (stringResposta != "e") {
+                                Graph g25 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_25.csv");
+                                cout << "O caminho do Graph de 25 edges é: ";
+                                g25.nearestNeighbour(g25);
+
+                                Graph g50 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_50.csv");
+                                cout << "O caminho do Graph de 50 edges é: ";
+                                g50.nearestNeighbour(g50);
+
+                                Graph g75 = rf.edgesGraphs("../ProjectData/Extra_Fully_Connected_Graphs/edges_75.csv");
+                                cout << "O caminho do Graph de 75 edges é: ";
+                                g75.nearestNeighbour(g75);
+
+                                Graph g100 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_100.csv");
+                                cout << "O caminho do Graph de 100 edges é: ";
+                                g100.nearestNeighbour(g100);
+
+                                Graph g200 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_200.csv");
+                                cout << "O caminho do Graph de 200 edges é: ";
+                                g200.nearestNeighbour(g200);
+
+                                Graph g300 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_300.csv");
+                                cout << "O caminho do Graph de 300 edges é: ";
+                                g300.nearestNeighbour(g300);
+
+                                Graph g400 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_400.csv");
+                                cout << "O caminho do Graph de 400 edges é: ";
+                                g400.nearestNeighbour(g400);
+
+                                Graph g500 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_500.csv");
+                                cout << "O caminho do Graph de 500 edges é: ";
+                                g500.nearestNeighbour(g500);
+
+                                Graph g600 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_600.csv");
+                                cout << "O caminho do Graph de 600 edges é: ";
+                                g600.nearestNeighbour(g600);
+
+                                Graph g700 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_700.csv");
+                                cout << "O caminho do Graph de 700 edges é: ";
+                                g700.nearestNeighbour(g700);
+
+                                Graph g800 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_800.csv");
+                                cout << "O caminho do Graph de 800 edges é: ";
+                                g800.nearestNeighbour(g800);
+
+                                Graph g900 = rf.edgesGraphs(
+                                        "../ProjectData/Extra_Fully_Connected_Graphs/edges_900.csv");
+                                cout << "O caminho do Graph de 900 edges é: ";
+                                g900.nearestNeighbour(g900);
+
+                                cout << "Voltar para tras - [PRESS e] " << endl;
+                                cout << "==================================================================" << endl;
+                                cin >> stringResposta;
+                                if (stringResposta == "e") break;
+                                cin.ignore();
+                            }
+                        }
+                        if (stringResposta == "3") {
+                            while (stringResposta != "e") {
+
+                                Graph gWorld1 = rf.realWorldGraphs("../ProjectData/Real-world Graphs/graph1/nodes.csv",
+                                                                   "../ProjectData/Real-world Graphs/graph1/edges.csv");
+                                cout << "O caminho do Real-World Graph 1 é: ";
+                                gWorld1.nearestNeighbour(gWorld1);
+
+                                cout << "Voltar para tras - [PRESS e] " << endl;
+                                cout << "==================================================================" << endl;
+                                cin >> stringResposta;
+                                if (stringResposta == "e") break;
+                                cin.ignore();
+                            }
+                        }
                     }
                 }
             }
