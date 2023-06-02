@@ -96,16 +96,93 @@ $(document).ready(function(){initNavTree('classread_files.html',''); initResizab
   <div class="headertitle"><div class="title">readFiles Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A classe <a class="el" href="classread_files.html" title="A classe readFiles contém funções para ler arquivos de dados e criar um grafo.">readFiles</a> contém funções para ler arquivos de dados e criar um grafo.  
+ <a href="classread_files.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="read_files_8h_source.html">readFiles.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a38217485745f8be62fb4df16c4683c85"><td class="memItemLeft" align="right" valign="top"><a id="a38217485745f8be62fb4df16c4683c85" name="a38217485745f8be62fb4df16c4683c85"></a>
-<a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><b>edgesGraphs</b> (const std::string &amp;filename)</td></tr>
+<tr class="memitem:a38217485745f8be62fb4df16c4683c85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classread_files.html#a38217485745f8be62fb4df16c4683c85">edgesGraphs</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a38217485745f8be62fb4df16c4683c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lê um arquivo contendo informações de arestas e cria um grafo.  <a href="classread_files.html#a38217485745f8be62fb4df16c4683c85">More...</a><br /></td></tr>
 <tr class="separator:a38217485745f8be62fb4df16c4683c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31db37193aa740027a123ab6f35ca6d9"><td class="memItemLeft" align="right" valign="top"><a id="a31db37193aa740027a123ab6f35ca6d9" name="a31db37193aa740027a123ab6f35ca6d9"></a>
-<a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><b>realWorldGraphs</b> (const std::string &amp;filename, const std::string &amp;filename2)</td></tr>
+<tr class="memitem:a31db37193aa740027a123ab6f35ca6d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classread_files.html#a31db37193aa740027a123ab6f35ca6d9">realWorldGraphs</a> (const std::string &amp;filename, const std::string &amp;filename2)</td></tr>
+<tr class="memdesc:a31db37193aa740027a123ab6f35ca6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lê dois arquivos contendo informações de vértices e arestas, e cria um grafo.  <a href="classread_files.html#a31db37193aa740027a123ab6f35ca6d9">More...</a><br /></td></tr>
 <tr class="separator:a31db37193aa740027a123ab6f35ca6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A classe <a class="el" href="classread_files.html" title="A classe readFiles contém funções para ler arquivos de dados e criar um grafo.">readFiles</a> contém funções para ler arquivos de dados e criar um grafo. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a38217485745f8be62fb4df16c4683c85" name="a38217485745f8be62fb4df16c4683c85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38217485745f8be62fb4df16c4683c85">&#9670;&#160;</a></span>edgesGraphs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_graph.html">Graph</a> readFiles::edgesGraphs </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lê um arquivo contendo informações de arestas e cria um grafo. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>O nome do arquivo a ser lido. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>O grafo criado a partir das informações do arquivo.</dd></dl>
+<p>A função lê um arquivo de dados contendo informações de arestas, e cria um grafo com base nessas informações. Cada linha do arquivo deve conter três valores separados por vírgula: o nó inicial da aresta, o nó destino da aresta e a distância entre eles. O grafo criado é retornado como resultado da função.</p>
+<p >Complexidade: O(E), onde E é o número de arestas no arquivo. </p>
+
+</div>
+</div>
+<a id="a31db37193aa740027a123ab6f35ca6d9" name="a31db37193aa740027a123ab6f35ca6d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31db37193aa740027a123ab6f35ca6d9">&#9670;&#160;</a></span>realWorldGraphs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_graph.html">Graph</a> readFiles::realWorldGraphs </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lê dois arquivos contendo informações de vértices e arestas, e cria um grafo. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>O nome do arquivo contendo informações dos vértices. </td></tr>
+    <tr><td class="paramname">filename2</td><td>O nome do arquivo contendo informações das arestas. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>O grafo criado a partir das informações dos arquivos.</dd></dl>
+<p>A função lê dois arquivos de dados, um contendo informações dos vértices e outro contendo informações das arestas, e cria um grafo com base nessas informações. O arquivo de vértices deve conter uma linha de cabeçalho, seguida por linhas contendo três valores separados por vírgula: o identificador do vértice, sua longitude e latitude. O arquivo de arestas deve conter uma linha de cabeçalho, seguida por linhas contendo três valores separados por vírgula: o nó inicial da aresta, o nó destino da aresta e a distância entre eles. O grafo criado é retornado como resultado da função.</p>
+<p >Complexidade: O(V + E), onde V é o número de vértices no arquivo de vértices e E é o número de arestas no arquivo de arestas. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="read_files_8h_source.html">readFiles.h</a></li>
 <li>readFiles.cpp</li>
